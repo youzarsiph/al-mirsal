@@ -3,16 +3,11 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from messenger.chats.views import (
-    ChatViewSet,
-    MessageViewSet,
-    ChatMessagesViewSet
-)
+from messenger.chats.views import ChatViewSet, ChatMessagesViewSet
 
 
 router = DefaultRouter(trailing_slash=False)
 router.register('', ChatViewSet, 'chat')
-router.register('messages', MessageViewSet, 'message')
 
 
 urlpatterns = [

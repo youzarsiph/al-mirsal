@@ -5,8 +5,6 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from messenger.channel.views import (
     ChannelViewSet,
-    MemberViewSet,
-    MessageViewSet,
     ChannelMembersViewSet,
     ChannelMessagesViewSet
 )
@@ -14,8 +12,6 @@ from messenger.channel.views import (
 
 router = DefaultRouter(trailing_slash=False)
 router.register('', ChannelViewSet, 'channel')
-router.register('members', MemberViewSet, 'member')
-router.register('messages', MessageViewSet, 'message')
 
 
 urlpatterns = [

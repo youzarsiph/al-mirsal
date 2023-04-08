@@ -4,7 +4,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from messenger.permissions import IsUser
 from messenger.serializers import (
@@ -51,13 +51,10 @@ class UserViewSet(ModelViewSet):
     def get_permissions(self):
         """ Customize the permissions based on self.action """
 
-        if self.action in ('list', 'retrieve'):
-            permission_classes = [IsAuthenticated]
+        if self.action == 'list':
+            self.permission_classes = [IsAuthenticated, IsAdminUser]
 
-        elif self.action == 'create':
-            permission_classes = self.permission_classes
+        elif self.action != 'create':
+            self.permission_classes = [IsAuthenticated, IsUser]
 
-        else:
-            permission_classes = [IsAuthenticated, IsUser]
-
-        return [permission() for permission in permission_classes]
+        return super().get_permissions()
