@@ -3,7 +3,7 @@
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from messenger.models import AbstractMessage, AbstractChat, AbstractMember
+from messenger.models import AbstractChat
 
 
 # Create your models here.
@@ -20,58 +20,6 @@ class Channel(AbstractChat):
     )
     members = models.ManyToManyField(
         User,
-        through='Member',
+        through='messenger.Member',
         related_name='channel_members'
-    )
-
-    class Meta:
-        """ Meta Data """
-
-        indexes = [
-            models.Index(
-                fields=['name'],
-                name='channel_name_index'
-            ),
-        ]
-
-
-class Member(AbstractMember):
-    """ Channel Members """
-
-    # The member
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='members'
-    )
-    # The channel
-    channel = models.ForeignKey(
-        Channel,
-        on_delete=models.CASCADE
-    )
-
-    class Meta:
-        """ Meta data """
-
-        constraints = [
-            models.UniqueConstraint(
-                fields=['user', 'channel'],
-                name='unique_channel_member'
-            ),
-        ]
-
-
-class Message(AbstractMessage):
-    """ Channel Messages """
-
-    # The channel that the message belongs to
-    channel = models.ForeignKey(
-        Channel,
-        on_delete=models.CASCADE
-    )
-    # The owner of the message
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='channel_message_owner'
     )

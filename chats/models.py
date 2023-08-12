@@ -4,7 +4,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as translate
-from messenger.models import AbstractMessage
 
 
 # Create your models here.
@@ -45,19 +44,3 @@ class Chat(models.Model):
 
     def __str__(self):
         return f'{self.from_user} --> {self.to_user}'
-
-
-class Message(AbstractMessage):
-    """ Chat Messages """
-
-    # The chat of the message
-    chat = models.ForeignKey(
-        Chat,
-        on_delete=models.CASCADE
-    )
-    # The owner of the message
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='chat_message_owner'
-    )

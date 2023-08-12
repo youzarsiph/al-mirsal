@@ -42,13 +42,13 @@ class User(AbstractUser):
         symmetrical=True,
     )
     chat_groups = models.ManyToManyField(
-        'groups.Group',
-        through='groups.Member',
+        'groups.ChatGroup',
+        through='Member',
         related_name='groups'
     )
     channels = models.ManyToManyField(
         'channel.Channel',
-        through='channel.Member',
+        through='Member',
         related_name='channels'
     )
 
@@ -68,6 +68,7 @@ class AbstractChat(models.Model):
 
     name = models.CharField(
         max_length=64,
+        db_index=True,
         help_text=translate('Name')
     )
     description = models.TextField(
@@ -95,9 +96,24 @@ class AbstractChat(models.Model):
         return self.name
 
 
-class AbstractMember(models.Model):
+class Member(models.Model):
     """ Members """
 
+    # Member user 
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+    # Channel
+    channel = models.ForeignKey(
+        'channel.Channel',
+        on_delete=models.CASCADE
+    )
+    # Group
+    group = models.ForeignKey(
+        'groups.ChatGroup',
+        on_delete=models.CASCADE
+    )
     admin = models.BooleanField(
         default=False,
         help_text=translate('Designates if the member is an admin')
@@ -112,14 +128,37 @@ class AbstractMember(models.Model):
     )
 
     class Meta:
-        """ Meta Data """
+        """ Meta data """
 
-        abstract = True
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'group'], name='user_group'),
+            models.UniqueConstraint(fields=['user', 'channel'], name='user_channel'),
+        ]
 
 
-class AbstractMessage(models.Model):
+class Message(models.Model):
     """ Messages """
 
+    # Owner 
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+    # Chat
+    chat = models.ForeignKey(
+        'chats.Chat',
+        on_delete=models.CASCADE
+    )
+    # Channel
+    channel = models.ForeignKey(
+        'channel.Channel',
+        on_delete=models.CASCADE
+    )
+    # Group
+    group = models.ForeignKey(
+        'groups.ChatGroup',
+        on_delete=models.CASCADE
+    )
     text = models.TextField(
         null=True,
         blank=True,
@@ -138,8 +177,3 @@ class AbstractMessage(models.Model):
     replies = models.ManyToManyField('self')
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        """ Meta Data """
-
-        abstract = True
