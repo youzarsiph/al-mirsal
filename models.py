@@ -8,87 +8,54 @@ from django.utils.translation import gettext_lazy as translate
 
 # Create your models here.
 class User(AbstractUser):
-    """ Users """
+    """Users"""
 
     about = models.CharField(
         max_length=256,
         null=True,
         blank=True,
-        help_text=translate('Tell us about yourself!'),
-        default=translate('Hey there! I am using Messenger')
+        help_text=translate("Tell us about yourself!"),
+        default=translate("Hey there! I am using Messenger"),
     )
     phone = models.CharField(
-        max_length=10,
-        unique=True,
-        db_index=True,
-        help_text=translate('Phone Number')
+        max_length=10, unique=True, db_index=True, help_text=translate("Phone Number")
     )
     photo = models.ImageField(
-        null=True,
-        blank=True,
-        help_text=translate('Profile Photo')
+        null=True, blank=True, help_text=translate("Profile Photo")
     )
-    online = models.BooleanField(
-        default=False,
-        help_text=translate('User Status')
-    )
+    online = models.BooleanField(default=False, help_text=translate("User Status"))
     typing = models.BooleanField(
-        default=False,
-        help_text=translate('Designates if the user is typing.')
+        default=False, help_text=translate("Designates if the user is typing.")
     )
     chats = models.ManyToManyField(
-        'self',
-        through='chats.Chat',
+        "self",
+        through="chats.Chat",
         symmetrical=True,
     )
     chat_groups = models.ManyToManyField(
-        'groups.ChatGroup',
-        through='Member',
-        related_name='groups'
+        "groups.ChatGroup", through="Member", related_name="groups"
     )
     channels = models.ManyToManyField(
-        'channel.Channel',
-        through='Member',
-        related_name='channels'
+        "channel.Channel", through="Member", related_name="channels"
     )
-
-    class Meta:
-        """ Meta Data """
-
-        indexes = [
-            models.Index(
-                fields=['phone'],
-                name='phone_index'
-            ),
-        ]
 
 
 class AbstractChat(models.Model):
-    """ Chats """
+    """Chats"""
 
-    name = models.CharField(
-        max_length=64,
-        db_index=True,
-        help_text=translate('Name')
-    )
+    name = models.CharField(max_length=64, db_index=True, help_text=translate("Name"))
     description = models.TextField(
-        null=True,
-        blank=True,
-        help_text=translate('Description')
+        null=True, blank=True, help_text=translate("Description")
     )
-    private = models.BooleanField(
-        default=False,
-        help_text=translate('Private')
-    )
+    private = models.BooleanField(default=False, help_text=translate("Private"))
     notifications = models.BooleanField(
-        default=True,
-        help_text=translate('Push notifications')
+        default=True, help_text=translate("Push notifications")
     )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        """ Meta Data """
+        """Meta Data"""
 
         abstract = True
 
@@ -97,83 +64,59 @@ class AbstractChat(models.Model):
 
 
 class Member(models.Model):
-    """ Members """
+    """Members"""
 
-    # Member user 
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    # Member user
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # Channel
     channel = models.ForeignKey(
-        'channel.Channel',
-        on_delete=models.CASCADE
+        "channel.Channel", on_delete=models.CASCADE, null=True, blank=True
     )
     # Group
     group = models.ForeignKey(
-        'groups.ChatGroup',
-        on_delete=models.CASCADE
+        "groups.ChatGroup", on_delete=models.CASCADE, null=True, blank=True
     )
     admin = models.BooleanField(
-        default=False,
-        help_text=translate('Designates if the member is an admin')
+        default=False, help_text=translate("Designates if the member is an admin")
     )
     banned = models.BooleanField(
-        default=False,
-        help_text=translate('Designates if the member is banned')
+        default=False, help_text=translate("Designates if the member is banned")
     )
     notifications = models.BooleanField(
-        default=True,
-        help_text=translate('Push notifications')
+        default=True, help_text=translate("Push notifications")
     )
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        """ Meta data """
+        """Meta data"""
 
         constraints = [
-            models.UniqueConstraint(fields=['user', 'group'], name='user_group'),
-            models.UniqueConstraint(fields=['user', 'channel'], name='user_channel'),
+            models.UniqueConstraint(fields=["user", "group"], name="user_group"),
+            models.UniqueConstraint(fields=["user", "channel"], name="user_channel"),
         ]
 
 
 class Message(models.Model):
-    """ Messages """
+    """Messages"""
 
-    # Owner 
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    # Owner
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # Chat
     chat = models.ForeignKey(
-        'chats.Chat',
-        on_delete=models.CASCADE
+        "chats.Chat", on_delete=models.CASCADE, null=True, blank=True
     )
     # Channel
     channel = models.ForeignKey(
-        'channel.Channel',
-        on_delete=models.CASCADE
+        "channel.Channel", on_delete=models.CASCADE, null=True, blank=True
     )
     # Group
     group = models.ForeignKey(
-        'groups.ChatGroup',
-        on_delete=models.CASCADE
+        "groups.ChatGroup", on_delete=models.CASCADE, null=True, blank=True
     )
-    text = models.TextField(
-        null=True,
-        blank=True,
-        help_text=translate('Message')
-    )
-    photo = models.ImageField(
-        null=True,
-        blank=True,
-        help_text=translate('Photo')
-    )
-    file = models.FileField(
-        null=True,
-        blank=True,
-        help_text=translate('File')
-    )
-    replies = models.ManyToManyField('self')
+    text = models.TextField(null=True, blank=True, help_text=translate("Message"))
+    photo = models.ImageField(null=True, blank=True, help_text=translate("Photo"))
+    file = models.FileField(null=True, blank=True, help_text=translate("File"))
+    replies = models.ManyToManyField("self")
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

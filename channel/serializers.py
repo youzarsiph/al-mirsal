@@ -7,10 +7,10 @@ from messenger.channel.models import Channel
 
 # Create your serializers here.
 class ChannelSerializer(HyperlinkedModelSerializer):
-    """ Channel Serializer """
+    """Channel Serializer"""
 
     class Meta:
-        """ Meta Data """
+        """Meta Data"""
 
         model = Channel
-        fields = ['id', 'url', 'user', 'name', 'description']
+        fields = ["id", "url", "name", "description"]

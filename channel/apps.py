@@ -5,7 +5,7 @@ from django.apps import AppConfig
 
 
 class ChannelConfig(AppConfig):
-    """ Configuration for channels app """
+    """Configuration for channels app"""
 
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'messenger.channel'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "messenger.channel"

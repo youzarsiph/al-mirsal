@@ -7,10 +7,10 @@ from messenger.chats.models import Chat
 
 # Create your serializers here.
 class ChatSerializer(HyperlinkedModelSerializer):
-    """ Chat Serializer """
+    """Chat Serializer"""
 
     class Meta:
-        """ Meta Data """
+        """Meta Data"""
 
         model = Chat
-        fields = ['id', 'url', 'from_user', 'to_user', 'muted']
+        fields = ["id", "url", "from_user", "to_user", "muted"]

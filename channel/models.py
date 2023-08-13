@@ -11,15 +11,10 @@ User = get_user_model()
 
 
 class Channel(AbstractChat):
-    """ Channels """
+    """Channels"""
 
     # The owner of the channel
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     members = models.ManyToManyField(
-        User,
-        through='messenger.Member',
-        related_name='channel_members'
+        User, through="messenger.Member", related_name="channel_members"
     )

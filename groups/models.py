@@ -11,15 +11,10 @@ User = get_user_model()
 
 
 class ChatGroup(AbstractChat):
-    """ Group chats """
+    """Group chats"""
 
     # The owner of the group
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     members = models.ManyToManyField(
-        User,
-        through='messenger.Member',
-        related_name='group_members'
+        User, through="messenger.Member", related_name="group_members"
     )
