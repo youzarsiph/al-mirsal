@@ -36,7 +36,7 @@ class User(AbstractUser):
         "groups.ChatGroup", through="Member", related_name="groups"
     )
     channels = models.ManyToManyField(
-        "channel.Channel", through="Member", related_name="channels"
+        "channels.Channel", through="Member", related_name="channels"
     )
 
 
@@ -70,7 +70,7 @@ class Member(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # Channel
     channel = models.ForeignKey(
-        "channel.Channel", on_delete=models.CASCADE, null=True, blank=True
+        "channels.Channel", on_delete=models.CASCADE, null=True, blank=True
     )
     # Group
     group = models.ForeignKey(
@@ -108,7 +108,7 @@ class Message(models.Model):
     )
     # Channel
     channel = models.ForeignKey(
-        "channel.Channel", on_delete=models.CASCADE, null=True, blank=True
+        "channels.Channel", on_delete=models.CASCADE, null=True, blank=True
     )
     # Group
     group = models.ForeignKey(

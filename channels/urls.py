@@ -3,7 +3,7 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from messenger.channel.views import (
+from messenger.channels.views import (
     ChannelViewSet,
     ChannelMembersViewSet,
     ChannelMessagesViewSet,

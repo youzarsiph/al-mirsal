@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 from messenger.views import UserViewSet
 from messenger.chats.views import UserChatsViewSet
 from messenger.groups.views import UserGroupsViewSet
-from messenger.channel.views import UserChannelsViewSet
+from messenger.channels.views import UserChannelsViewSet
 
 # Base router
 router = DefaultRouter(trailing_slash=False)
@@ -66,5 +66,5 @@ urlpatterns = [
     ),
     path("chats/", include("messenger.chats.urls")),
     path("groups/", include("messenger.groups.urls")),
-    path("channels/", include("messenger.channel.urls")),
+    path("channels/", include("messenger.channels.urls")),
 ]

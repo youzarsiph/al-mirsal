@@ -6,9 +6,9 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from messenger.mixins import OwnerMixin
-from messenger.channel.models import Channel
+from messenger.channels.models import Channel
 from messenger.views import MemberViewSet, MessageViewSet
-from messenger.channel.serializers import ChannelSerializer
+from messenger.channels.serializers import ChannelSerializer
 
 
 # Create your views here.

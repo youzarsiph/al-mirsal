@@ -8,4 +8,4 @@ class ChannelConfig(AppConfig):
     """Configuration for channels app"""
 
     default_auto_field = "django.db.models.BigAutoField"
-    name = "messenger.channel"
+    name = "messenger.channels"

@@ -2,7 +2,7 @@
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer
-from messenger.channel.models import Channel
+from messenger.channels.models import Channel
 
 
 # Create your serializers here.
