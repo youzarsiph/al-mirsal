@@ -16,7 +16,7 @@ User = get_user_model()
 
 
 class ChannelViewSet(OwnerMixin, ModelViewSet):
-    """Channel ViewSet"""
+    """Create, read, update and delete channels"""
 
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
@@ -62,7 +62,7 @@ class ChannelMembersViewSet(MemberViewSet):
 
 
 class ChannelMessagesViewSet(MessageViewSet):
-    """Channel members"""
+    """Channel messages"""
 
     def perform_create(self, serializer):
         """Creates a message in a channel"""

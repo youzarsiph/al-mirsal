@@ -9,7 +9,7 @@ class IsOwner(BasePermission):
     """Allow access only to the owner of the object"""
 
     def has_object_permission(self, request, view, obj):
-        """Check the owner of the object"""
+        """Check if the current logged in user is the owner of obj"""
 
         return request.user == obj.user
 
@@ -18,6 +18,15 @@ class IsUser(BasePermission):
     """Allow access only to the owner of the account"""
 
     def has_object_permission(self, request, view, obj):
-        """Check the owner of the user account"""
+        """Check if the current logged in user is the owner of the account"""
 
         return request.user == obj
+
+
+class IsMember(BasePermission):
+    """Allow access only to the members of a group or account"""
+
+    def has_object_permission(self, request, view, obj):
+        """Check if the current logged in user is a member in the group or account"""
+
+        return request.user in obj.members.all()

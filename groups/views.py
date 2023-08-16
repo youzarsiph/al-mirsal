@@ -16,7 +16,7 @@ User = get_user_model()
 
 
 class GroupViewSet(OwnerMixin, ModelViewSet):
-    """Group ViewSet"""
+    """Create, read, update and delete chat groups"""
 
     queryset = ChatGroup.objects.all()
     serializer_class = GroupSerializer

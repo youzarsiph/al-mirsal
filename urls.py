@@ -64,7 +64,10 @@ urlpatterns = [
             }
         ),
     ),
+    # Chats
     path("chats/", include("messenger.chats.urls")),
+    # Groups
     path("groups/", include("messenger.groups.urls")),
+    # Channels
     path("channels/", include("messenger.channels.urls")),
 ]

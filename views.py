@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from messenger.mixins import OwnerMixin
 from messenger.permissions import IsUser
 from messenger.models import Member, Message
 from messenger.serializers import (
@@ -59,23 +60,22 @@ class UserViewSet(ModelViewSet):
         return super().get_permissions()
 
 
-class MemberViewSet(ModelViewSet):
+class MemberViewSet(OwnerMixin, ModelViewSet):
     """Members in groups and channels"""
 
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
     permission_classes = [IsAuthenticated]
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
-    search_fields = []
+    search_fields = ['user__username', 'user__first_name', 'user__last_name']
     ordering_fields = []
 
 
-class MessageViewSet(ModelViewSet):
-    """Messages"""
+class MessageViewSet(OwnerMixin, ModelViewSet):
+    """Create, read, update and delete messages"""
 
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
-    search_fields = []
-    ordering_fields = []
+    search_fields = ['text', 'photo', 'file']

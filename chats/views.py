@@ -16,7 +16,7 @@ User = get_user_model()
 
 
 class ChatViewSet(ChatOwnerMixin, ModelViewSet):
-    """Chat ViewSet"""
+    """Create, read, update and delete chats"""
 
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
