@@ -13,4 +13,14 @@ class ChannelSerializer(HyperlinkedModelSerializer):
         """Meta Data"""
 
         model = Channel
-        fields = ["id", "url", "name", "description"]
+        fields = [
+            "id",
+            "url",
+            "photo",
+            "name",
+            "description",
+            "private",
+            "token",
+            "created_at",
+            "updated_at",
+        ]

@@ -3,7 +3,7 @@
 
 from django.contrib.auth import get_user_model
 from rest_framework.serializers import HyperlinkedModelSerializer
-from messenger.models import Member, Message
+from messenger.models import Member, Message, Reaction
 
 
 # Create your serializers here
@@ -27,9 +27,6 @@ class UserSerializer(HyperlinkedModelSerializer):
             "photo",
             "online",
             "typing",
-            "chats",
-            "chat_groups",
-            "channels",
         ]
 
 
@@ -58,7 +55,15 @@ class MemberSerializer(HyperlinkedModelSerializer):
         """Meta data"""
 
         model = Member
-        fields = ["id", "admin", "banned", "notifications", "created_at", "updated_at"]
+        fields = [
+            "id",
+            "url",
+            "admin",
+            "banned",
+            "notifications",
+            "created_at",
+            "updated_at",
+        ]
 
 
 class MessageSerializer(HyperlinkedModelSerializer):
@@ -68,4 +73,24 @@ class MessageSerializer(HyperlinkedModelSerializer):
         """Meta data"""
 
         model = Message
-        fields = ["id", "text", "photo", "file", "created_at", "updated_at"]
+        fields = [
+            "id",
+            "url",
+            "pinned",
+            "starred",
+            "text",
+            "photo",
+            "file",
+            "created_at",
+            "updated_at",
+        ]
+
+
+class ReactionSerializer(HyperlinkedModelSerializer):
+    """Reaction Serializer"""
+
+    class Meta:
+        """Meta data"""
+
+        model = Reaction
+        fields = ["id", "url", "value", "created_at", "updated_at"]

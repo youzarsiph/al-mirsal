@@ -3,14 +3,17 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from messenger.views import UserViewSet
+from messenger import views
 from messenger.chats.views import UserChatsViewSet
-from messenger.groups.views import UserGroupsViewSet
+from messenger.groups.views import UserChatGroupsViewSet
 from messenger.channels.views import UserChannelsViewSet
 
 # Base router
 router = DefaultRouter(trailing_slash=False)
-router.register("users", UserViewSet, "user")
+router.register("users", views.UserViewSet, "user")
+router.register("members", views.UserFilteredMemberViewSet, "member")
+router.register("messages", views.UserFilteredMessageViewSet, "message")
+router.register("reactions", views.UserFilteredReactionViewSet, "reaction")
 
 
 urlpatterns = [
@@ -35,11 +38,11 @@ urlpatterns = [
     # User Groups
     path(
         "users/<int:id>/groups/",
-        UserGroupsViewSet.as_view({"get": "list", "post": "create"}),
+        UserChatGroupsViewSet.as_view({"get": "list", "post": "create"}),
     ),
     path(
         "users/<int:id>/groups/<int:pk>/",
-        UserGroupsViewSet.as_view(
+        UserChatGroupsViewSet.as_view(
             {
                 "get": "retrieve",
                 "put": "update",
@@ -70,4 +73,20 @@ urlpatterns = [
     path("groups/", include("messenger.groups.urls")),
     # Channels
     path("channels/", include("messenger.channels.urls")),
+    # Message Reactions
+    path(
+        "messages/<int:id>/reactions/",
+        views.MessageReactionsViewSet.as_view({"get": "list", "post": "create"}),
+    ),
+    path(
+        "messages/<int:id>/reactions/<int:pk>/",
+        views.MessageReactionsViewSet.as_view(
+            {
+                "get": "retrieve",
+                "put": "update",
+                "patch": "partial_update",
+                "delete": "destroy",
+            }
+        ),
+    ),
 ]

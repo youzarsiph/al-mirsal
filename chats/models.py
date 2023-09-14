@@ -14,13 +14,15 @@ class Chat(models.Model):
     """Chats"""
 
     # The sender of the message
-    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender")
+    from_user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="sender",
+    )
     # The receiver of the message
     to_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
         related_name="receiver",
     )
     muted = models.BooleanField(
@@ -36,6 +38,9 @@ class Chat(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=["from_user", "to_user"], name="unique_chat"
+            ),
+            models.UniqueConstraint(
+                fields=["to_user", "from_user"], name="unique_chat_reversed"
             ),
         ]
 

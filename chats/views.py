@@ -1,4 +1,4 @@
-""" Views """
+""" API endpoints fro chats app """
 
 
 from django.contrib.auth import get_user_model
@@ -22,13 +22,20 @@ class ChatViewSet(ChatOwnerMixin, ModelViewSet):
     serializer_class = ChatSerializer
     permission_classes = [IsAuthenticated]
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
-    search_fields = []
-    ordering_fields = []
+    ordering_fields = ["created_at"]
+    search_fields = [
+        "to_user__username",
+        "to_user__first_name",
+        "to_user__last_name",
+        "from_user__username",
+        "from_user__first_name",
+        "from_user__last_name",
+    ]
 
 
 # Filtered ViewSets
 class UserChatsViewSet(ChatViewSet):
-    """Chats of a particular user"""
+    """Chats of a user"""
 
     def get_queryset(self):
         """Filter the queryset by user"""
@@ -43,7 +50,6 @@ class UserChatsViewSet(ChatViewSet):
 class ChatMessagesViewSet(MessageViewSet):
     """Messages of a chat"""
 
-    
     def perform_create(self, serializer):
         """Creates a message in a chat"""
 

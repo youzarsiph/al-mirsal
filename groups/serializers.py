@@ -5,11 +5,21 @@ from messenger.groups.models import ChatGroup
 
 
 # Create your serializers here.
-class GroupSerializer(HyperlinkedModelSerializer):
+class ChatGroupSerializer(HyperlinkedModelSerializer):
     """Group Serializer"""
 
     class Meta:
         """Meta Data"""
 
         model = ChatGroup
-        fields = ["id", "url", "name", "description"]
+        fields = [
+            "id",
+            "url",
+            "photo",
+            "name",
+            "description",
+            "private",
+            "token",
+            "created_at",
+            "updated_at",
+        ]

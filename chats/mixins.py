@@ -1,6 +1,7 @@
 """ Mixins for chats app """
 
 
+from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated
 from messenger.chats.permissions import IsChatOwner
 
@@ -13,6 +14,15 @@ class ChatOwnerMixin:
         """Save with owner"""
 
         serializer.save(from_user=self.request.user)
+
+    def get_queryset(self):
+        """Filter the queryset by user"""
+
+        return (
+            super()
+            .get_queryset()
+            .filter(Q(from_user=self.request.user) | Q(to_user=self.request.user))
+        )
 
     def get_permissions(self):
         """Customize the permissions based on self.action"""

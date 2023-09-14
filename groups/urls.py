@@ -4,14 +4,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from messenger.groups.views import (
-    GroupViewSet,
-    GroupMembersViewSet,
-    GroupMessagesViewSet,
+    ChatGroupViewSet,
+    ChatGroupMembersViewSet,
+    ChatGroupMessagesViewSet,
 )
 
 
 router = DefaultRouter(trailing_slash=False)
-router.register("", GroupViewSet, "chatgroup")
+router.register("", ChatGroupViewSet, "chatgroup")
 
 
 urlpatterns = [
@@ -19,11 +19,11 @@ urlpatterns = [
     # Group members
     path(
         "<int:id>/members/",
-        GroupMembersViewSet.as_view({"get": "list", "post": "create"}),
+        ChatGroupMembersViewSet.as_view({"get": "list", "post": "create"}),
     ),
     path(
         "<int:id>/members/<int:pk>/",
-        GroupMembersViewSet.as_view(
+        ChatGroupMembersViewSet.as_view(
             {
                 "get": "retrieve",
                 "put": "update",
@@ -35,11 +35,11 @@ urlpatterns = [
     # Group messages
     path(
         "<int:id>/messages/",
-        GroupMessagesViewSet.as_view({"get": "list", "post": "create"}),
+        ChatGroupMessagesViewSet.as_view({"get": "list", "post": "create"}),
     ),
     path(
         "<int:id>/messages/<int:pk>/",
-        GroupMessagesViewSet.as_view(
+        ChatGroupMessagesViewSet.as_view(
             {
                 "get": "retrieve",
                 "put": "update",

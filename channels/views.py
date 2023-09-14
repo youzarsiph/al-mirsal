@@ -1,13 +1,13 @@
-""" Views for channels app """
+""" API endpoints for channels app """
 
 
 from django.contrib.auth import get_user_model
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
-from messenger.mixins import OwnerMixin
-from messenger.channels.models import Channel
+from messenger.mixins import OwnerMixin, TokenMixin
 from messenger.views import MemberViewSet, MessageViewSet
+from messenger.channels.models import Channel
 from messenger.channels.serializers import ChannelSerializer
 
 
@@ -15,7 +15,7 @@ from messenger.channels.serializers import ChannelSerializer
 User = get_user_model()
 
 
-class ChannelViewSet(OwnerMixin, ModelViewSet):
+class ChannelViewSet(TokenMixin, OwnerMixin, ModelViewSet):
     """Create, read, update and delete channels"""
 
     queryset = Channel.objects.all()
@@ -23,7 +23,7 @@ class ChannelViewSet(OwnerMixin, ModelViewSet):
     permission_classes = [IsAuthenticated]
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     search_fields = ["name", "description"]
-    ordering_fields = []
+    ordering_fields = ["created_at"]
 
 
 class UserChannelsViewSet(ChannelViewSet):
