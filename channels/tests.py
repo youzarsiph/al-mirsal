@@ -1,4 +1,4 @@
-""" Test fot channels app """
+""" Tests fot messenger.channels """
 
 
 from django.test import TestCase

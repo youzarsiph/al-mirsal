@@ -1,51 +1,47 @@
-""" URLConf for groups app """
+""" URLConf for messenger.groups """
 
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from messenger.groups.views import (
-    ChatGroupViewSet,
-    ChatGroupMembersViewSet,
-    ChatGroupMessagesViewSet,
-)
+from messenger.urls import actions
+from messenger.groups.views import GroupViewSet
+from messenger.links.views import GroupLinkViewSet
+from messenger.members.views import GroupMembersViewSet
+from messenger.msgs.views import GroupMessagesViewSet
 
 
+# Create your URLConf here.
 router = DefaultRouter(trailing_slash=False)
-router.register("", ChatGroupViewSet, "chatgroup")
+router.register("", GroupViewSet, "group")
 
 
 urlpatterns = [
     path("", include(router.urls)),
+    # Group invite links
+    path(
+        "<int:id>/links/",
+        GroupLinkViewSet.as_view(actions["list_create"]),
+    ),
+    path(
+        "<int:id>/links/<int:pk>/",
+        GroupLinkViewSet.as_view(actions["retrieve_update_destroy"]),
+    ),
     # Group members
     path(
         "<int:id>/members/",
-        ChatGroupMembersViewSet.as_view({"get": "list", "post": "create"}),
+        GroupMembersViewSet.as_view(actions["list_create"]),
     ),
     path(
         "<int:id>/members/<int:pk>/",
-        ChatGroupMembersViewSet.as_view(
-            {
-                "get": "retrieve",
-                "put": "update",
-                "patch": "partial_update",
-                "delete": "destroy",
-            }
-        ),
+        GroupMembersViewSet.as_view(actions["retrieve_update_destroy"]),
     ),
     # Group messages
     path(
         "<int:id>/messages/",
-        ChatGroupMessagesViewSet.as_view({"get": "list", "post": "create"}),
+        GroupMessagesViewSet.as_view(actions["list_create"]),
     ),
     path(
         "<int:id>/messages/<int:pk>/",
-        ChatGroupMessagesViewSet.as_view(
-            {
-                "get": "retrieve",
-                "put": "update",
-                "patch": "partial_update",
-                "delete": "destroy",
-            }
-        ),
+        GroupMessagesViewSet.as_view(actions["retrieve_update_destroy"]),
     ),
 ]

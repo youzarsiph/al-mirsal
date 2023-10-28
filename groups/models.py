@@ -1,29 +1,50 @@
-""" Data Models for groups app """
+""" Data Models for messenger.groups """
 
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from messenger.models import DetailMixin
 
 
 # Create your models here.
 User = get_user_model()
 
 
-class ChatGroup(DetailMixin):
-    """Chat Groups"""
+class Group(models.Model):
+    """Group chats"""
 
-    # The owner of the group
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        help_text="Group Owner",
+    )
+    photo = models.ImageField(
+        null=True,
+        blank=True,
+        help_text="Photo",
+    )
+    name = models.CharField(
+        max_length=64,
+        db_index=True,
+        help_text="Name",
+    )
+    description = models.CharField(
+        max_length=256,
+        null=True,
+        blank=True,
+        help_text="Description",
+    )
+    private = models.BooleanField(
+        default=False,
+        help_text="Designates if the group is private",
+    )
     members = models.ManyToManyField(
         User,
-        through="messenger.Member",
-        related_name="group_members",
+        through="members.Member",
+        related_name="members",
+        help_text="Group Members",
     )
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        """Meta data"""
-
-        constraints = [
-            models.UniqueConstraint(name="unique_group_token", fields=["token"])
-        ]
+    def __str__(self) -> str:
+        return self.name

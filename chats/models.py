@@ -1,9 +1,8 @@
-""" Data Models for chats app """
+""" Data Models for messenger.chats """
 
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.utils.translation import gettext as translate
 
 
 # Create your models here.
@@ -13,21 +12,21 @@ User = get_user_model()
 class Chat(models.Model):
     """Chats"""
 
-    # The sender of the message
     from_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="sender",
+        help_text="Sender",
     )
-    # The receiver of the message
     to_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="receiver",
+        help_text="Receiver",
     )
     muted = models.BooleanField(
         default=False,
-        help_text=translate("Designates if the chat notifications is muted."),
+        help_text="Designates if the chat notifications is muted.",
     )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -37,10 +36,12 @@ class Chat(models.Model):
 
         constraints = [
             models.UniqueConstraint(
-                fields=["from_user", "to_user"], name="unique_chat"
+                fields=["from_user", "to_user"],
+                name="unique_chat",
             ),
             models.UniqueConstraint(
-                fields=["to_user", "from_user"], name="unique_chat_reversed"
+                fields=["to_user", "from_user"],
+                name="unique_chat_reversed",
             ),
         ]
 

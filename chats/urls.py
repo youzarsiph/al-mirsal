@@ -1,11 +1,14 @@
-""" URLConf for chats app """
+""" URLConf for messenger.chats """
 
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from messenger.chats.views import ChatViewSet, ChatMessagesViewSet
+from messenger.urls import actions
+from messenger.chats.views import ChatViewSet
+from messenger.msgs.views import ChatMessagesViewSet
 
 
+# Create your URLConf here.
 router = DefaultRouter(trailing_slash=False)
 router.register("", ChatViewSet, "chat")
 
@@ -15,17 +18,10 @@ urlpatterns = [
     # Chat messages
     path(
         "<int:id>/messages/",
-        ChatMessagesViewSet.as_view({"get": "list", "post": "create"}),
+        ChatMessagesViewSet.as_view(actions["list_create"]),
     ),
     path(
         "<int:id>/messages/<int:pk>/",
-        ChatMessagesViewSet.as_view(
-            {
-                "get": "retrieve",
-                "put": "update",
-                "patch": "partial_update",
-                "delete": "destroy",
-            }
-        ),
+        ChatMessagesViewSet.as_view(actions["retrieve_update_destroy"]),
     ),
 ]

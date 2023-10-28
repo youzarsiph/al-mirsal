@@ -1,4 +1,4 @@
-""" Admin Site Model Registration """
+""" Admin Site """
 
 
 from django.contrib import admin

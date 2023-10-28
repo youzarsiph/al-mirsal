@@ -1,17 +1,17 @@
-""" Serializers for groups app """
+""" Serializers for messenger.groups """
 
-from rest_framework.serializers import HyperlinkedModelSerializer
-from messenger.groups.models import ChatGroup
+from rest_framework.serializers import ModelSerializer
+from messenger.groups.models import Group
 
 
 # Create your serializers here.
-class ChatGroupSerializer(HyperlinkedModelSerializer):
+class GroupSerializer(ModelSerializer):
     """Group Serializer"""
 
     class Meta:
         """Meta Data"""
 
-        model = ChatGroup
+        model = Group
         fields = [
             "id",
             "url",
@@ -19,7 +19,6 @@ class ChatGroupSerializer(HyperlinkedModelSerializer):
             "name",
             "description",
             "private",
-            "token",
             "created_at",
             "updated_at",
         ]

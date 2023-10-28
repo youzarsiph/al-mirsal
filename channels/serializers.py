@@ -1,12 +1,12 @@
-""" Serializers for channels app """
+""" Serializers for messenger.channels """
 
 
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 from messenger.channels.models import Channel
 
 
 # Create your serializers here.
-class ChannelSerializer(HyperlinkedModelSerializer):
+class ChannelSerializer(ModelSerializer):
     """Channel Serializer"""
 
     class Meta:
@@ -20,7 +20,6 @@ class ChannelSerializer(HyperlinkedModelSerializer):
             "name",
             "description",
             "private",
-            "token",
             "created_at",
             "updated_at",
         ]
