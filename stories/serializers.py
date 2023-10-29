@@ -13,4 +13,4 @@ class StorySerializer(ModelSerializer):
         """Meta data"""
 
         model = Story
-        fields = ["id", "text", "image", "file", "created_at", "updated_at"]
+        fields = ["id", "text", "image", "video", "created_at", "updated_at"]

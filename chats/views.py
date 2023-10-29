@@ -15,7 +15,7 @@ class ChatViewSet(ModelViewSet):
 
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsChatParticipant]
     ordering_fields = ["created_at"]
     search_fields = [
         "to_user__username",
@@ -29,14 +29,6 @@ class ChatViewSet(ModelViewSet):
     def perform_create(self, serializer):
         """Add the owner of the chat"""
         serializer.save(from_user=self.request.user)
-
-    def get_permissions(self):
-        """Customize the permissions based on self.action"""
-
-        if self.action not in ["create", "list"]:
-            self.permission_classes += [IsChatParticipant]
-
-        return super().get_permissions()
 
     def get_queryset(self):
         """Filter the queryset by user"""

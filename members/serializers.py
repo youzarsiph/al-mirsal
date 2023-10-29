@@ -15,6 +15,7 @@ class MemberSerializer(ModelSerializer):
         model = Member
         fields = [
             "id",
+            "url",
             "admin",
             "banned",
             "notifications",

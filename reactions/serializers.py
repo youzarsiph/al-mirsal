@@ -13,4 +13,4 @@ class ReactionSerializer(ModelSerializer):
         """Meta data"""
 
         model = Reaction
-        fields = ["id", "value", "created_at", "updated_at"]
+        fields = ["id", "url", "value", "created_at", "updated_at"]

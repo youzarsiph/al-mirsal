@@ -13,4 +13,12 @@ class ForwardSerializer(ModelSerializer):
         """Meta data"""
 
         model = Forward
-        fields = ["id", "value", "created_at", "updated_at"]
+        fields = [
+            "id",
+            "message",
+            "channel",
+            "chat",
+            "group",
+            "created_at",
+            "updated_at",
+        ]

@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from messenger.mixins import OwnerMixin
 from messenger.groups.models import Group, User
 from messenger.groups.serializers import GroupSerializer
+from messenger.members.models import Member
 
 
 # Create your views here.
@@ -17,6 +18,10 @@ class GroupViewSet(OwnerMixin, ModelViewSet):
     permission_classes = [IsAuthenticated]
     search_fields = ["name", "description"]
     ordering_fields = ["created_at"]
+
+    def perform_create(self, serializer):
+        group = serializer.save(user=self.request.user)
+        Member.objects.create(user=self.request.user, group=group, admin=True)
 
 
 class UserGroupsViewSet(GroupViewSet):

@@ -9,4 +9,4 @@ class IsChatParticipant(BasePermission):
     """Allow access only for from_user and to_user"""
 
     def has_object_permission(self, request, view, obj):
-        return request.user in (obj.from_user, obj.to_user)
+        return request.user in (obj.chat.from_user, obj.chat.to_user)

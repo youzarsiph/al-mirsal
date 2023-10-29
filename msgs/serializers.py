@@ -17,8 +17,8 @@ class MessageSerializer(ModelSerializer):
         model = Message
         fields = [
             "id",
+            "url",
             "pinned",
-            "starred",
             "text",
             "photo",
             "file",

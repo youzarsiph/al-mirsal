@@ -22,26 +22,26 @@ class Forward(models.Model):
         on_delete=models.CASCADE,
         help_text="Forwarded Message",
     )
-    chat = models.ForeignKey(
-        "chats.Chat",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        help_text="Forwarded To",
-    )
     channel = models.ForeignKey(
         "channels.Channel",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        help_text="Forwarded To",
+        help_text="Forwarded to channel",
+    )
+    chat = models.ForeignKey(
+        "chats.Chat",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="Forwarded to chat",
     )
     group = models.ForeignKey(
         "groups.Group",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        help_text="Forwarded To",
+        help_text="Forwarded to group",
     )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

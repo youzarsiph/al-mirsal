@@ -26,7 +26,7 @@ class ForwardViewSet(OwnerMixin, ModelViewSet):
 
 
 class MessageForwardsViewSet(ForwardViewSet):
-    """User Reactions"""
+    """Message forwards"""
 
     def perform_create(self, serializer):
         """Forward a message"""
@@ -42,7 +42,7 @@ class MessageForwardsViewSet(ForwardViewSet):
 
 
 class UserForwardsViewSet(ForwardViewSet):
-    """User Reactions"""
+    """Message forwards by user"""
 
     permission_classes = [IsAuthenticated, IsOwner]
 

@@ -3,14 +3,14 @@
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from messenger.mixins import OwnerMixin
 from messenger.permissions import IsOwner
 from messenger.channels.models import Channel, User
 from messenger.channels.serializers import ChannelSerializer
+from messenger.members.models import Member
 
 
 # Create your views here.
-class ChannelViewSet(OwnerMixin, ModelViewSet):
+class ChannelViewSet(ModelViewSet):
     """Create, read, update and delete channels"""
 
     queryset = Channel.objects.all()
@@ -18,6 +18,10 @@ class ChannelViewSet(OwnerMixin, ModelViewSet):
     permission_classes = [IsAuthenticated]
     search_fields = ["name", "description"]
     ordering_fields = ["created_at"]
+
+    def perform_create(self, serializer):
+        channel = serializer.save(user=self.request.user)
+        Member.objects.create(user=self.request.user, channel=channel, admin=True)
 
     def get_permissions(self):
         if self.action in ["update", "partial_update", "destroy"]:

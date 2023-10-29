@@ -27,7 +27,7 @@ class MessageViewSet(OwnerMixin, ModelViewSet):
     permission_classes = [IsAuthenticated]
     search_fields = ["text", "photo", "file"]
     ordering_fields = ["created_at"]
-    filterset_fields = ["pinned", "starred"]
+    filterset_fields = ["pinned"]
 
     @action(detail=True, methods=["post"])
     def pin(self, request, pk):

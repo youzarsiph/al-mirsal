@@ -31,6 +31,6 @@ class UserViewSet(ModelViewSet):
         """Customize the permissions based on self.action"""
 
         if self.action == "retrieve":
-            self.permission_classes.remove(IsUser)
+            self.permission_classes = [IsAuthenticated]
 
         return super().get_permissions()

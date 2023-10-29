@@ -24,21 +24,21 @@ urlpatterns = [
     path("", include(router.urls)),
     path("users/<int:pk>/", UserViewSet.as_view(actions["retrieve_update_destroy"])),
     # Channels
-    path("channels/", include("messenger.channels.urls")),
+    path("", include("messenger.channels.urls")),
     # Chats
-    path("chats/", include("messenger.chats.urls")),
+    path("", include("messenger.chats.urls")),
     # Forwards
-    path("forwards/", include("messenger.forwards.urls")),
+    path("", include("messenger.forwards.urls")),
     # Groups
-    path("groups/", include("messenger.groups.urls")),
+    path("", include("messenger.groups.urls")),
     # Links
-    path("links/", include("messenger.links.urls")),
+    path("", include("messenger.links.urls")),
     # Members
-    path("members/", include("messenger.members.urls")),
+    path("", include("messenger.members.urls")),
     # Messages
-    path("messages/", include("messenger.msgs.urls")),
+    path("", include("messenger.msgs.urls")),
     # Reactions
-    path("reactions/", include("messenger.reactions.urls")),
+    path("", include("messenger.reactions.urls")),
     # Stories
-    path("stories/", include("messenger.stories.urls")),
+    path("", include("messenger.stories.urls")),
 ]

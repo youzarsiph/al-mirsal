@@ -13,4 +13,4 @@ class ChatSerializer(ModelSerializer):
         """Meta Data"""
 
         model = Chat
-        fields = ["id", "url", "from_user", "to_user", "muted"]
+        fields = ["id", "url", "to_user", "muted"]

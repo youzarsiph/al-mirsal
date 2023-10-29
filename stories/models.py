@@ -14,7 +14,10 @@ class Story(models.Model):
     """Stories"""
 
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="stories", help_text="Story Owner"
+        User,
+        on_delete=models.CASCADE,
+        related_name="stories",
+        help_text="Story Owner",
     )
     text = models.CharField(
         max_length=256,
