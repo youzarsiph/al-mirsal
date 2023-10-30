@@ -4,7 +4,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from messenger.permissions import IsOwner
-from messenger.channels.models import Channel, User
+from messenger.channels.models import Channel
 from messenger.channels.serializers import ChannelSerializer
 from messenger.members.models import Member
 
@@ -21,7 +21,7 @@ class ChannelViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         channel = serializer.save(user=self.request.user)
-        Member.objects.create(user=self.request.user, channel=channel, admin=True)
+        Member.objects.create(user=self.request.user, channel=channel, is_admin=True)
 
     def get_permissions(self):
         if self.action in ["update", "partial_update", "destroy"]:
@@ -36,5 +36,4 @@ class UserChannelsViewSet(ChannelViewSet):
     def get_queryset(self):
         """Filter the queryset by user"""
 
-        user = User.objects.get(pk=self.kwargs["id"])
-        return super().get_queryset().filter(user=user)
+        return super().get_queryset().filter(user=self.request.user)

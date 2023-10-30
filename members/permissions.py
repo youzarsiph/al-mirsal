@@ -11,7 +11,7 @@ class IsChannelAdmin(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         member = Member.objects.get(user=request.user, channel=obj.channel)
-        return request.user == obj.channel.user or member.admin
+        return request.user == obj.channel.user or member.is_admin
 
 
 class IsGroupAdmin(BasePermission):
@@ -19,4 +19,4 @@ class IsGroupAdmin(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         member = Member.objects.get(user=request.user, group=obj.group)
-        return request.user == obj.group.user or member.admin
+        return request.user == obj.group.user or member.is_admin

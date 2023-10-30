@@ -12,9 +12,11 @@ class GroupSerializer(ModelSerializer):
         """Meta Data"""
 
         model = Group
+        read_only_fields = ["user"]
         fields = [
             "id",
             "url",
+            "user",
             "photo",
             "name",
             "description",

@@ -15,9 +15,11 @@ class MessageSerializer(ModelSerializer):
         """Meta data"""
 
         model = Message
+        read_only_fields = ["user", "pinned"]
         fields = [
             "id",
             "url",
+            "user",
             "pinned",
             "text",
             "photo",

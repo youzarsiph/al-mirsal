@@ -4,20 +4,36 @@
 import secrets
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from messenger.mixins import OwnerMixin
 from messenger.channels.models import Channel
-from messenger.groups.models import Group
-from messenger.links.models import ChannelLink, GroupLink
 from messenger.channels.permissions import IsChannelMember
+from messenger.groups.models import Group
 from messenger.groups.permissions import IsGroupMember
-from messenger.links.serializers import ChannelLinkSerializer, GroupLinkSerializer
+from messenger.links.models import Link
+from messenger.links.serializers import LinkSerializer
 
 
 # Create your views here.
-class ChannelLinkViewSet(ModelViewSet):
-    """Create, read, update and delete Invite Links for Channels"""
+class LinkViewSet(ModelViewSet):
+    """Create, read, update and delete Invite Links"""
 
-    queryset = ChannelLink.objects.all()
-    serializer_class = ChannelLinkSerializer
+    queryset = Link.objects.all()
+    serializer_class = LinkSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class UserLinksViewSet(OwnerMixin, LinkViewSet):
+    """User invite links"""
+
+    def get_queryset(self):
+        """Filter queryset by user"""
+
+        return super().get_queryset().filter(user=self.request.user)
+
+
+class ChannelLinkViewSet(LinkViewSet):
+    """Channel invite links"""
+
     permission_classes = [IsAuthenticated, IsChannelMember]
 
     def perform_create(self, serializer):
@@ -35,11 +51,9 @@ class ChannelLinkViewSet(ModelViewSet):
         return super().get_queryset().filter(channel=channel)
 
 
-class GroupLinkViewSet(ModelViewSet):
-    """Create, read, update and delete Invite Links for Groups"""
+class GroupLinkViewSet(LinkViewSet):
+    """Group invite links"""
 
-    queryset = GroupLink.objects.all()
-    serializer_class = GroupLinkSerializer
     permission_classes = [IsAuthenticated, IsGroupMember]
 
     def perform_create(self, serializer):

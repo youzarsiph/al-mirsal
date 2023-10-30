@@ -17,6 +17,20 @@ class Link(models.Model):
         on_delete=models.CASCADE,
         help_text="Link Owner",
     )
+    channel = models.ForeignKey(
+        "channels.Channel",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="Channel",
+    )
+    group = models.ForeignKey(
+        "groups.Group",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="Group",
+    )
     token = models.CharField(
         max_length=10,
         unique=True,
@@ -24,39 +38,14 @@ class Link(models.Model):
         help_text="Invite link token",
     )
     time_limit = models.DurationField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         help_text="Make the link expire after a period of time.",
     )
     user_limit = models.IntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         help_text="Make the link work only for a certain number of users.",
     )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        """Meta data"""
-
-        abstract = True
-
-
-class ChannelLink(Link):
-    """Channel Invite Links"""
-
-    channel = models.ForeignKey(
-        "channels.Channel",
-        on_delete=models.CASCADE,
-        help_text="Invited channel",
-    )
-
-
-class GroupLink(Link):
-    """Group Invite Links"""
-
-    group = models.ForeignKey(
-        "groups.Group",
-        on_delete=models.CASCADE,
-        help_text="Invited group",
-    )

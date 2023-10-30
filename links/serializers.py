@@ -2,7 +2,7 @@
 
 
 from rest_framework.serializers import ModelSerializer
-from messenger.links.models import Link, ChannelLink, GroupLink
+from messenger.links.models import Link
 
 
 # Create your serializers here.
@@ -13,29 +13,14 @@ class LinkSerializer(ModelSerializer):
         """Meta data"""
 
         model = Link
+        read_only_fields = ["user", "token"]
         fields = [
             "id",
+            "url",
+            "user",
             "token",
             "time_limit",
             "user_limit",
             "created_at",
             "updated_at",
         ]
-
-
-class ChannelLinkSerializer(LinkSerializer):
-    """Channel Invite Link Serializer"""
-
-    class Meta(LinkSerializer.Meta):
-        """Meta data"""
-
-        model = ChannelLink
-
-
-class GroupLinkSerializer(LinkSerializer):
-    """Group Invite Link Serializer"""
-
-    class Meta(LinkSerializer.Meta):
-        """Meta data"""
-
-        model = GroupLink

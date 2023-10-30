@@ -13,8 +13,11 @@ class ForwardSerializer(ModelSerializer):
         """Meta data"""
 
         model = Forward
+        read_only_fields = ["user"]
         fields = [
             "id",
+            "url",
+            "user",
             "message",
             "channel",
             "chat",

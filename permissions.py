@@ -27,7 +27,7 @@ class IsMember(BasePermission):
 
 
 class IsAdminMember(BasePermission):
-    """Allow access to admin members"""
+    """Allow access only to admin members"""
 
     def has_object_permission(self, request, view, obj):
-        return request.user == obj.user or obj.members.get(user=request.user).admin
+        return request.user == obj.user or obj.members.get(user=request.user).is_admin

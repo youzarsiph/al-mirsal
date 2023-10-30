@@ -35,11 +35,11 @@ class Member(models.Model):
         default=False,
         help_text="Designates if the it is pinned",
     )
-    admin = models.BooleanField(
+    is_admin = models.BooleanField(
         default=False,
         help_text="Designates if the member is an admin",
     )
-    banned = models.BooleanField(
+    is_banned = models.BooleanField(
         default=False,
         help_text="Designates if the member is banned",
     )

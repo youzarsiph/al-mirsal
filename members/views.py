@@ -30,10 +30,10 @@ class MemberViewSet(OwnerMixin, ModelViewSet):
 
         member = self.get_object()
 
-        if member.banned:
-            member.banned = False
+        if member.is_banned:
+            member.is_banned = False
         else:
-            member.banned = True
+            member.is_banned = True
 
         member.save()
 
@@ -45,10 +45,10 @@ class MemberViewSet(OwnerMixin, ModelViewSet):
 
         member = self.get_object()
 
-        if member.admin:
-            member.admin = False
+        if member.is_admin:
+            member.is_admin = False
         else:
-            member.admin = True
+            member.is_admin = True
 
         member.save()
 
