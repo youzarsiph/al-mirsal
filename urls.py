@@ -41,4 +41,6 @@ urlpatterns = [
     path("", include("messenger.reactions.urls")),
     # Stories
     path("", include("messenger.stories.urls")),
+    # Subscribers
+    path("", include("messenger.subscribers.urls")),
 ]

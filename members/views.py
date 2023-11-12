@@ -8,11 +8,10 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from messenger.mixins import OwnerMixin
 from messenger.permissions import IsOwner
-from messenger.channels.models import Channel
 from messenger.groups.models import Group
 from messenger.members.models import Member
 from messenger.members.serializers import MemberSerializer
-from messenger.members.permissions import IsChannelAdmin, IsGroupAdmin
+from messenger.members.permissions import IsGroupAdmin
 
 
 # Create your views here.
@@ -70,28 +69,6 @@ class UserMembersViewSet(MemberViewSet):
         """Filter queryset by user"""
 
         return super().get_queryset().filter(user=self.request.user)
-
-
-class ChannelMembersViewSet(MemberViewSet):
-    """Channel members"""
-
-    def get_permissions(self):
-        if self.action in ["ban", "admin"]:
-            self.permission_classes += [IsChannelAdmin]
-
-        return super().get_permissions()
-
-    def perform_create(self, serializer):
-        """Creates a member in a channel"""
-
-        channel = Channel.objects.get(pk=self.kwargs["id"])
-        serializer.save(user=self.request.user, channel=channel)
-
-    def get_queryset(self):
-        """Filter the queryset by channel"""
-
-        channel = Channel.objects.get(pk=self.kwargs["id"])
-        return super().get_queryset().filter(channel=channel)
 
 
 class GroupMembersViewSet(MemberViewSet):

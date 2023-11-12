@@ -27,14 +27,6 @@ class User(AbstractUser):
         blank=True,
         help_text="Profile Photo",
     )
-    online = models.BooleanField(
-        default=False,
-        help_text="Designates if the user is online.",
-    )
-    typing = models.BooleanField(
-        default=False,
-        help_text="Designates if the user is typing.",
-    )
     chats = models.ManyToManyField(
         "self",
         symmetrical=True,
@@ -47,6 +39,6 @@ class User(AbstractUser):
     )
     channels = models.ManyToManyField(
         "channels.Channel",
-        through="members.Member",
+        through="subscribers.Subscriber",
         related_name="channels",
     )

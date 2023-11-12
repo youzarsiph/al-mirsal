@@ -37,11 +37,11 @@ class Channel(models.Model):
         default=False,
         help_text="Designates if the channel is private",
     )
-    members = models.ManyToManyField(
+    subscribers = models.ManyToManyField(
         User,
-        through="members.Member",
-        related_name="channel_members",
-        help_text="Channel Members",
+        through="subscribers.Subscriber",
+        related_name="subscribers",
+        help_text="Channel Subscribers",
     )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

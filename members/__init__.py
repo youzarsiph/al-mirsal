@@ -1,1 +1,1 @@
-""" Group and Channel Members """
+""" Group Members """

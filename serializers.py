@@ -23,6 +23,4 @@ class UserSerializer(ModelSerializer):
             "last_name",
             "phone",
             "photo",
-            "online",
-            "typing",
         ]

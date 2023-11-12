@@ -5,8 +5,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from messenger.channels.views import ChannelViewSet
 from messenger.links.views import ChannelLinkViewSet
-from messenger.members.views import ChannelMembersViewSet
 from messenger.msgs.views import ChannelMessagesViewSet
+from messenger.subscribers.views import ChannelSubscribersViewSet
 
 
 # Create your URLConf here.
@@ -15,8 +15,8 @@ router.register("channels", ChannelViewSet, "channel")
 
 sub_router = DefaultRouter()
 sub_router.register("links", ChannelLinkViewSet, "link")
-sub_router.register("members", ChannelMembersViewSet, "member")
 sub_router.register("messages", ChannelMessagesViewSet, "message")
+sub_router.register("subscribers", ChannelSubscribersViewSet, "subscriber")
 
 urlpatterns = [
     path("", include(router.urls)),
