@@ -4,7 +4,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from messenger.mixins import OwnerMixin
-from messenger.permissions import IsOwner
 from messenger.groups.models import Group
 from messenger.groups.serializers import GroupSerializer
 from messenger.members.models import Member
@@ -23,12 +22,6 @@ class GroupViewSet(OwnerMixin, ModelViewSet):
     def perform_create(self, serializer):
         group = serializer.save(user=self.request.user)
         Member.objects.create(user=self.request.user, group=group, is_admin=True)
-
-    def get_permissions(self):
-        if self.action in ["update", "partial_update", "destroy"]:
-            self.permission_classes += [IsOwner]
-
-        return super().get_permissions()
 
 
 class UserGroupsViewSet(GroupViewSet):

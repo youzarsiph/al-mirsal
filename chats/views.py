@@ -28,6 +28,7 @@ class ChatViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         """Add the owner of the chat"""
+
         serializer.save(from_user=self.request.user)
 
     def get_queryset(self):
