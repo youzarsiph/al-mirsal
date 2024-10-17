@@ -1,8 +1,8 @@
 # **Al-Mirsal: Your Trusted Messenger**
 
-[![Django CI](https://github.com/youzarsiph/al_mirsal/actions/workflows/django.yml/badge.svg)](https://github.com/youzarsiph/al_mirsal/actions/workflows/ci.yml)
-[![Black](https://github.com/youzarsiph/al_mirsal/actions/workflows/black.yml/badge.svg)](https://github.com/youzarsiph/al_mirsal/actions/workflows/black.yml)
-[![Ruff](https://github.com/youzarsiph/al_mirsal/actions/workflows/ruff.yml/badge.svg)](https://github.com/youzarsiph/al_mirsal/actions/workflows/ruff.yml)
+[![Django CI](https://github.com/youzarsiph/al-mirsal/actions/workflows/django.yml/badge.svg)](https://github.com/youzarsiph/al-mirsal/actions/workflows/ci.yml)
+[![Black](https://github.com/youzarsiph/al-mirsal/actions/workflows/black.yml/badge.svg)](https://github.com/youzarsiph/al-mirsal/actions/workflows/black.yml)
+[![Ruff](https://github.com/youzarsiph/al-mirsal/actions/workflows/ruff.yml/badge.svg)](https://github.com/youzarsiph/al-mirsal/actions/workflows/ruff.yml)
 
 Welcome to Al-Mirsal - the ultimate messaging app that redefines communication! With a name that means "The Messenger", Al-Mirsal embodies the essence of swift and secure messaging. Stay connected with your friends, family, and colleagues in a user-friendly environment designed for seamless interaction.
 
