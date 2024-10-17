@@ -1,10 +1,10 @@
-""" App Configuration for dar_al_salam.members """
+""" App Configuration for al_mirsal.members """
 
 from django.apps import AppConfig
 
 
 class MembersConfig(AppConfig):
-    """dar_al_salam.members AppConfig"""
+    """al_mirsal.members AppConfig"""
 
-    name = "dar_al_salam.members"
+    name = "al_mirsal.members"
     default_auto_field = "django.db.models.BigAutoField"

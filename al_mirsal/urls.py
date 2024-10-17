@@ -1,4 +1,4 @@
-""" URLConf for dar_al_salam """
+""" URLConf for al_mirsal """
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter

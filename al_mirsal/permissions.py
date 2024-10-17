@@ -1,4 +1,4 @@
-""" Permissions for dar_al_salam """
+""" Permissions for al_mirsal """
 
 from rest_framework.permissions import BasePermission
 

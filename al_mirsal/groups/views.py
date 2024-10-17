@@ -1,12 +1,12 @@
-""" API endpoints for dar_al_salam.groups """
+""" API endpoints for al_mirsal.groups """
 
 from django.utils.text import slugify
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from dar_al_salam.groups.models import Group
-from dar_al_salam.groups.serializers import GroupSerializer
-from dar_al_salam.mixins import OwnerMixin
+from al_mirsal.groups.models import Group
+from al_mirsal.groups.serializers import GroupSerializer
+from al_mirsal.mixins import OwnerMixin
 
 
 # Create your views here.

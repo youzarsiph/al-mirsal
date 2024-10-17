@@ -1,10 +1,10 @@
-""" App Configuration for dar_al_salam.chats """
+""" App Configuration for al_mirsal.chats """
 
 from django.apps import AppConfig
 
 
 class ChatsConfig(AppConfig):
-    """dar_al_salam.chats AppConfig"""
+    """al_mirsal.chats AppConfig"""
 
-    name = "dar_al_salam.chats"
+    name = "al_mirsal.chats"
     default_auto_field = "django.db.models.BigAutoField"

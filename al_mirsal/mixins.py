@@ -1,6 +1,6 @@
-""" Mixins for dar_al_salam """
+""" Mixins for al_mirsal """
 
-from dar_al_salam.permissions import IsOwner
+from al_mirsal.permissions import IsOwner
 
 
 # Create your mixins here.

@@ -1,8 +1,8 @@
-""" Serializers for dar_al_salam.members """
+""" Serializers for al_mirsal.members """
 
 from rest_framework.serializers import ModelSerializer
 
-from dar_al_salam.members.models import Member
+from al_mirsal.members.models import Member
 
 
 # Create your serializers here.

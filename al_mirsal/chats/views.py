@@ -1,12 +1,12 @@
-""" API endpoints fro dar_al_salam.chats """
+""" API endpoints fro al_mirsal.chats """
 
 from django.db.models import Q
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from dar_al_salam.chats.models import Chat
-from dar_al_salam.chats.serializers import ChatSerializer
-from dar_al_salam.permissions import IsChatOwner
+from al_mirsal.chats.models import Chat
+from al_mirsal.chats.serializers import ChatSerializer
+from al_mirsal.permissions import IsChatOwner
 
 
 # Create your views here.

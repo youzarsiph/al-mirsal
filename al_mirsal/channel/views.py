@@ -1,12 +1,12 @@
-""" API endpoints for dar_al_salam.channels """
+""" API endpoints for al_mirsal.channel """
 
 from django.utils.text import slugify
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from dar_al_salam.mixins import OwnerMixin
-from dar_al_salam.channels.models import Channel
-from dar_al_salam.channels.serializers import ChannelSerializer
+from al_mirsal.mixins import OwnerMixin
+from al_mirsal.channel.models import Channel
+from al_mirsal.channel.serializers import ChannelSerializer
 
 
 # Create your views here.

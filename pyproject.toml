@@ -1,13 +1,13 @@
 [tool.poetry]
 package-mode = false
-name = "dar-al-salam"
+name = "al-mirsal"
 version = "0.1.0"
-description = "Dar Al Salam: "
+description = "Al Mirsal: The ultimate messaging app that redefines communication"
 authors = ["Yousef Abu Shanab <josephyousef249@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/youzarsiph/dar-al-salam"
-repository = "https://github.com/youzarsiph/dar-al-salam"
+homepage = "https://github.com/youzarsiph/al_mirsal"
+repository = "https://github.com/youzarsiph/al_mirsal"
 
 [tool.poetry.dependencies]
 python = "^3.10"

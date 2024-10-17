@@ -1,4 +1,4 @@
-""" Data Models for dar_al_salam """
+""" Data Models for al_mirsal """
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -6,14 +6,14 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class User(AbstractUser):
-    """Users of Dar Al Salam"""
+    """Users of Al Mirsal"""
 
     about = models.CharField(
         max_length=256,
         null=True,
         blank=True,
         help_text="Tell us about yourself!",
-        default="Hey there! I am using dar_al_salam",
+        default="Hey there! I am using al_mirsal",
     )
     phone = models.CharField(
         max_length=10,
@@ -31,7 +31,6 @@ class User(AbstractUser):
         blank=True,
         symmetrical=True,
         through="chats.Chat",
-        related_name="chats",
         help_text="Chats",
     )
     groups = models.ManyToManyField(
@@ -42,7 +41,7 @@ class User(AbstractUser):
         help_text="Groups",
     )
     channels = models.ManyToManyField(
-        "channels.Channel",
+        "channel.Channel",
         blank=True,
         through="members.Member",
         related_name="channels",

@@ -1,10 +1,10 @@
-""" App Configuration for dar_al_salam.groups """
+""" App Configuration for al_mirsal.groups """
 
 from django.apps import AppConfig
 
 
 class GroupsConfig(AppConfig):
-    """dar_al_salam.groups AppConfig"""
+    """al_mirsal.groups AppConfig"""
 
-    name = "dar_al_salam.groups"
+    name = "al_mirsal.groups"
     default_auto_field = "django.db.models.BigAutoField"

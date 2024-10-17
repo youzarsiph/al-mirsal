@@ -1,11 +1,11 @@
-""" API endpoints for dar_al_salam.msgs """
+""" API endpoints for al_mirsal.msgs """
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from dar_al_salam.messages.models import Message
-from dar_al_salam.messages.serializers import MessageSerializer
-from dar_al_salam.mixins import OwnerMixin
+from al_mirsal.messages.models import Message
+from al_mirsal.messages.serializers import MessageSerializer
+from al_mirsal.mixins import OwnerMixin
 
 
 # Create your views here.

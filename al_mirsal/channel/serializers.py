@@ -1,19 +1,19 @@
-""" Serializers for dar_al_salam.groups """
+""" Serializers for al_mirsal.channel """
 
 from rest_framework.serializers import ModelSerializer
 
-from dar_al_salam.groups.models import Group
+from al_mirsal.channel.models import Channel
 
 
 # Create your serializers here.
-class GroupSerializer(ModelSerializer):
-    """Group Serializer"""
+class ChannelSerializer(ModelSerializer):
+    """Channel Serializer"""
 
     class Meta:
         """Meta Data"""
 
-        model = Group
-        read_only_fields = ["user"]
+        model = Channel
+        read_only_fields = ["user", "slug"]
         fields = [
             "id",
             "url",
@@ -23,7 +23,7 @@ class GroupSerializer(ModelSerializer):
             "name",
             "description",
             "is_private",
-            "member_count",
+            "subscriber_count",
             "created_at",
             "updated_at",
         ]

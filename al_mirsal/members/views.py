@@ -1,11 +1,11 @@
-""" API endpoints for dar_al_salam.members """
+""" API endpoints for al_mirsal.members """
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from dar_al_salam.members.models import Member
-from dar_al_salam.members.serializers import MemberSerializer
-from dar_al_salam.mixins import OwnerMixin
+from al_mirsal.members.models import Member
+from al_mirsal.members.serializers import MemberSerializer
+from al_mirsal.mixins import OwnerMixin
 
 
 # Create your views here.

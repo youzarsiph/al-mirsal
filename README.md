@@ -1,25 +1,43 @@
-# **Dar Al-Salam: Your Sanctuary for Connection**
+# **Al-Mirsal: Your Trusted Messenger**
 
-[![Django CI](https://github.com/youzarsiph/dar-al-salam/actions/workflows/django.yml/badge.svg)](https://github.com/youzarsiph/dar-al-salam/actions/workflows/ci.yml)
-[![Black](https://github.com/youzarsiph/dar-al-salam/actions/workflows/black.yml/badge.svg)](https://github.com/youzarsiph/dar-al-salam/actions/workflows/black.yml)
-[![Ruff](https://github.com/youzarsiph/dar-al-salam/actions/workflows/ruff.yml/badge.svg)](https://github.com/youzarsiph/dar-al-salam/actions/workflows/ruff.yml)
+[![Django CI](https://github.com/youzarsiph/al_mirsal/actions/workflows/django.yml/badge.svg)](https://github.com/youzarsiph/al_mirsal/actions/workflows/ci.yml)
+[![Black](https://github.com/youzarsiph/al_mirsal/actions/workflows/black.yml/badge.svg)](https://github.com/youzarsiph/al_mirsal/actions/workflows/black.yml)
+[![Ruff](https://github.com/youzarsiph/al_mirsal/actions/workflows/ruff.yml/badge.svg)](https://github.com/youzarsiph/al_mirsal/actions/workflows/ruff.yml)
 
-Welcome to **Dar Al-Salam**, the ultimate messenger app that embodies the spirit of peace and community. Inspired by the rich cultural heritage of Arabic, Islamic, and Andalusian traditions, we provide a serene and inclusive space for meaningful conversations and connections.
-
-At **Dar Al-Salam**, our mission is to foster harmonious communication that transcends borders and brings people together. Whether you’re chatting with friends, family, or colleagues, our platform prioritizes respectful dialogue and enriching interactions.
+Welcome to Al-Mirsal - the ultimate messaging app that redefines communication! With a name that means "The Messenger", Al-Mirsal embodies the essence of swift and secure messaging. Stay connected with your friends, family, and colleagues in a user-friendly environment designed for seamless interaction.
 
 ## Key Features
 
-- **Intelligent Conversations**: With AI-driven enhancements, enjoy smart replies, content moderation, and personalized suggestions that make your conversations more engaging and efficient.
+- **Instant Messaging**: Enjoy real-time communication with one-on-one chats and group conversations. Share texts, images, videos, and voice notes effortlessly.
 
-- **Cultural Richness**: Experience a messaging environment that celebrates the beauty of Arabic language and culture, featuring emoticons, stickers, and themes that reflect our heritage.
+- **End-to-End Encryption**: Al-Mirsal prioritizes your privacy. All messages and calls are secured with advanced encryption technology, ensuring that your conversations remain private and confidential.
 
-- **Secure and Private**: Your safety is our priority. **Dar Al-Salam** offers end-to-end encryption and robust privacy controls to ensure your discussions remain confidential.
+- **Open Source AI Integration**: Enhance your messaging experience with our integrated Open Source AI features. Get smart suggestions, automated responses that save you time, and AI-driven content analysis to better connect with your contacts.
 
-- **Community Focus**: Join a diverse community where cultural exchange and knowledge-sharing are encouraged, creating a vibrant tapestry of global voices.
+- **Multi-Platform Support**: Access Al-Mirsal on your smartphone, tablet, or desktop. Our cross-device compatibility keeps you connected wherever you go.
 
-- **Multilingual Support**: Communicate effortlessly with real-time translation features, breaking language barriers and connecting you with friends worldwide.
+- **Voice and Video Calls**: Experience high-quality audio and video calls. Connect face-to-face with loved ones or colleagues, regardless of distance.
 
-- **Emotional Intelligence**: Utilize sentiment analysis to enhance understanding and empathy in your chats, promoting a positive environment.
+- **File Sharing**: Send documents, PDFs, and other files easily and securely, making it convenient for professional and personal use.
 
-Embark on your communication journey with **Dar Al-Salam**—where every message nurtures relationships and every conversation embodies peace. Download now and join the house of harmony!
+- **Customizable Profiles**: Personalize your profile with unique usernames, profile pictures, and status messages to express your personality.
+
+- **Stickers and Emojis**: Enhance your conversations with a wide range of fun stickers and emojis, adding creativity and emotion to your chats.
+
+- **Broadcast Messages**: Share important updates, announcements, or promotions with multiple contacts through broadcast lists.
+
+- **Message Search and Archive**: Easily find past conversations and important messages with powerful search and archiving features.
+
+- **Privacy Controls**: Tailor your privacy settings by controlling who can see your profile picture, status, and last seen, ensuring a secure experience.
+
+- **Dark Mode**: Switch between light and dark themes to suit your preference and reduce eye strain.
+
+- **Custom Notifications**: Set personalized notification tones for different contacts or groups, so important messages never go unnoticed.
+
+- **Chat Backup**: Automatically back up your chats and media to the cloud, ensuring your data is safe and easily recoverable.
+
+### Why Choose Al-Mirsal?
+
+At Al-Mirsal, we understand that effective communication is fundamental in today’s fast-paced world. Our app combines essential features with unparalleled security and ease of use, making it the go-to messaging platform for users seeking to connect seamlessly. With the added advantage of Open Source AI integration, Al-Mirsal empowers you with smart communication tools that cater to your needs.
+
+Join the Al-Mirsal community today and experience the next generation of messaging. Download now and unlock the power of connection!

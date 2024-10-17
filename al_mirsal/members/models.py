@@ -40,7 +40,7 @@ class Member(models.Model):
         help_text="User",
     )
     channel = models.ForeignKey(
-        "channels.Channel",
+        "channel.Channel",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

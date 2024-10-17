@@ -1,8 +1,8 @@
-""" Serializers for dar_al_salam.chats """
+""" Serializers for al_mirsal.chats """
 
 from rest_framework.serializers import ModelSerializer
 
-from dar_al_salam.chats.models import Chat
+from al_mirsal.chats.models import Chat
 
 
 # Create your serializers here.

@@ -32,7 +32,7 @@ class Message(models.Model):
         help_text="Message Owner",
     )
     channel = models.ForeignKey(
-        "channels.Channel",
+        "channel.Channel",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

@@ -1,8 +1,8 @@
-""" Serializers for dar_al_salam.msgs """
+""" Serializers for al_mirsal.msgs """
 
 from rest_framework.serializers import ModelSerializer
 
-from dar_al_salam.messages.models import Message
+from al_mirsal.messages.models import Message
 
 
 # Create your serializers here.
