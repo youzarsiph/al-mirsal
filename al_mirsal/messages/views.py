@@ -15,6 +15,6 @@ class MessageViewSet(OwnerMixin, ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
-    search_fields = ["content"]
+    search_fields = ["content", "photo", "file"]
     ordering_fields = ["created_at", "updated_at"]
     filterset_fields = ["user", "channel", "chat", "group", "is_pinned"]

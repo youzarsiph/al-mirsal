@@ -1,4 +1,4 @@
-""" Mixins for al_mirsal """
+""" View Mixins """
 
 from al_mirsal.permissions import IsOwner
 

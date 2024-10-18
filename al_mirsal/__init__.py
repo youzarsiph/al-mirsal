@@ -1,1 +1,1 @@
-""" Dar Al-Salam: Your Sanctuary for Connection """
+""" Al-Mirsal: Your Trusted Messenger """

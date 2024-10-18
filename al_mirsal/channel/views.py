@@ -11,7 +11,7 @@ from al_mirsal.channel.serializers import ChannelSerializer
 
 # Create your views here.
 class ChannelViewSet(OwnerMixin, ModelViewSet):
-    """Create, read, update and delete channels"""
+    """Create, read, update and delete Channels"""
 
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
@@ -23,5 +23,8 @@ class ChannelViewSet(OwnerMixin, ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(
             user=self.request.user,
-            slug=slugify(serializer.validated_data["name"]),
+            slug=slugify(serializer.validated_data["slug"]),
         )
+
+    def perform_update(self, serializer):
+        serializer.save(slug=slugify(serializer.validated_data["slug"]))

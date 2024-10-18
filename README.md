@@ -38,6 +38,6 @@ Welcome to Al-Mirsal - the ultimate messaging app that redefines communication! 
 
 ### Why Choose Al-Mirsal?
 
-At Al-Mirsal, we understand that effective communication is fundamental in today’s fast-paced world. Our app combines essential features with unparalleled security and ease of use, making it the go-to messaging platform for users seeking to connect seamlessly. With the added advantage of Open Source AI integration, Al-Mirsal empowers you with smart communication tools that cater to your needs.
+At Al-Mirsal, we understand that effective communication is fundamental in today's fast-paced world. Our app combines essential features with unparalleled security and ease of use, making it the go-to messaging platform for users seeking to connect seamlessly. With the added advantage of Open Source AI integration, Al-Mirsal empowers you with smart communication tools that cater to your needs.
 
 Join the Al-Mirsal community today and experience the next generation of messaging. Download now and unlock the power of connection!

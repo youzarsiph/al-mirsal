@@ -62,6 +62,7 @@ db.sqlite3
 db.sqlite3-journal
 manage.py
 messenger/
+**/migrations/0*
 
 # Flask stuff:
 instance/

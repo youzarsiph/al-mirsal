@@ -16,4 +16,5 @@ class MemberViewSet(OwnerMixin, ModelViewSet):
     serializer_class = MemberSerializer
     permission_classes = [IsAuthenticated]
     ordering_fields = ["created_at", "updated_at"]
-    search_fields = ["user", "channel", "group", "status"]
+    filterset_fields = ["user", "channel", "group", "status"]
+    search_fields = ["channel__name", "group__name"]

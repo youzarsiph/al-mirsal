@@ -38,11 +38,11 @@ class Group(models.Model):
         help_text="Photo",
         upload_to="images/groups/",
     )
-    slug = models.CharField(
+    slug = models.SlugField(
         max_length=64,
         unique=True,
         db_index=True,
-        help_text="Name",
+        help_text="Slug",
     )
     name = models.CharField(
         max_length=64,
@@ -75,7 +75,7 @@ class Group(models.Model):
     )
 
     @property
-    def member_Count(self) -> int:
+    def member_count(self) -> int:
         """
         Count of members
 

@@ -26,6 +26,8 @@ Meta:
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from al_mirsal.members import MEMBER_STATUS
+
 
 # Create your models here.
 User = get_user_model()
@@ -60,15 +62,7 @@ class Member(models.Model):
     status = models.PositiveSmallIntegerField(
         default=0,
         help_text="Status",
-        choices=[
-            (0, "Active"),
-            (1, "Admin"),
-            (2, "Pending"),
-            (3, "Banned"),
-            (4, "Rejected"),
-            (5, "Deleted"),
-            (6, "Left"),
-        ],
+        choices=[(s[1], s[0]) for s in MEMBER_STATUS.items()],
     )
     notifications = models.BooleanField(
         default=True,

@@ -13,7 +13,7 @@ class MessageSerializer(ModelSerializer):
         """Meta data"""
 
         model = Message
-        read_only_fields = ["user", "channel", "chat", "group", "is_pinned"]
+        read_only_fields = ["user", "channel", "chat", "group", "type", "is_pinned"]
         fields = [
             "id",
             "url",
@@ -21,10 +21,12 @@ class MessageSerializer(ModelSerializer):
             "channel",
             "chat",
             "group",
-            "is_pinned",
+            "type",
             "content",
             "photo",
             "file",
+            "is_pinned",
+            "reply_count",
             "created_at",
             "updated_at",
         ]

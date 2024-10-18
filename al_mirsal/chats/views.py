@@ -17,7 +17,8 @@ class ChatViewSet(ModelViewSet):
     serializer_class = ChatSerializer
     permission_classes = [IsAuthenticated, IsChatOwner]
     ordering_fields = ["created_at", "updated_at"]
-    search_fields = ["to_user", "from_user"]
+    search_fields = ["to_user"]
+    filterset_fields = ["to_user"]
 
     def perform_create(self, serializer):
         """Add the owner of the chat"""

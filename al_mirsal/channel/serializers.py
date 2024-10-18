@@ -13,7 +13,7 @@ class ChannelSerializer(ModelSerializer):
         """Meta Data"""
 
         model = Channel
-        read_only_fields = ["user", "slug"]
+        read_only_fields = ["user"]
         fields = [
             "id",
             "url",
@@ -23,7 +23,7 @@ class ChannelSerializer(ModelSerializer):
             "name",
             "description",
             "is_private",
-            "subscriber_count",
+            "member_count",
             "created_at",
             "updated_at",
         ]

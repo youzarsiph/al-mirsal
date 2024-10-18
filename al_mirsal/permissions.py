@@ -22,7 +22,7 @@ class IsMember(BasePermission):
     """Allow access only to the members of a group or channel"""
 
     def has_object_permission(self, request, view, obj):
-        return request.user == obj.user or request.user in obj.members.all()
+        return request.user.id == obj.user_id or request.user in obj.members.all()
 
 
 class IsChatOwner(BasePermission):

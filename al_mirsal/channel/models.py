@@ -34,7 +34,7 @@ class Channel(models.Model):
         help_text="Photo",
         upload_to="images/channels/",
     )
-    slug = models.CharField(
+    slug = models.SlugField(
         max_length=64,
         unique=True,
         db_index=True,
@@ -71,7 +71,7 @@ class Channel(models.Model):
     )
 
     @property
-    def subscriber_count(self) -> int:
+    def member_count(self) -> int:
         """
         Count of subscribers
 

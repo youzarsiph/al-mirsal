@@ -17,7 +17,7 @@ from al_mirsal.messages.serializers import MessageSerializer
 class MessageConsumer(AsyncJsonWebsocketConsumer):
     """Message consumer"""
 
-    queryset = Chat
+    model = Chat
     serializer_class = ChatSerializer
 
     async def connect(self):
@@ -105,9 +105,9 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
         """
 
         try:
-            return self.queryset.objects.get(id=id)
+            return self.model.objects.get(id=id)
 
-        except self.queryset.DoesNotExist:
+        except self.model.DoesNotExist:
             return None
 
     @database_sync_to_async

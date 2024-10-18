@@ -23,5 +23,8 @@ class GroupViewSet(OwnerMixin, ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(
             user=self.request.user,
-            slug=slugify(serializer.validated_data["name"]),
+            slug=slugify(serializer.validated_data["slug"]),
         )
+
+    def perform_update(self, serializer):
+        serializer.save(slug=slugify(serializer.validated_data["slug"]))

@@ -10,6 +10,7 @@ Model fields:
 - content: Message
 - photo: Photo
 - file: File
+- type: Message type
 - replies: Message replies
 - updated_at: Last update
 - created_at: Date created
@@ -17,6 +18,8 @@ Model fields:
 
 from django.db import models
 from django.contrib.auth import get_user_model
+
+from al_mirsal.messages import MESSAGE_TYPES
 
 
 # Create your models here.
@@ -52,6 +55,11 @@ class Message(models.Model):
         blank=True,
         help_text="Group",
     )
+    type = models.PositiveSmallIntegerField(
+        default=0,
+        help_text="Message type",
+        choices=[(t[1], t[0]) for t in MESSAGE_TYPES.items()],
+    )
     is_pinned = models.BooleanField(
         default=False,
         help_text="Designates if the message is pinned.",
@@ -86,5 +94,26 @@ class Message(models.Model):
         help_text="Date created",
     )
 
+    @property
+    def reply_count(self) -> int:
+        """
+        Count of message replies
+
+        Returns:
+            int: Count of message replies
+        """
+
+        return self.replies.count()
+
     def __str__(self) -> str:
-        return f"{self.user} - {self.content[:10]}"
+        content = (
+            self.content[:10]
+            if self.content
+            else (
+                self.photo
+                if self.photo
+                else self.file if self.file else "Empty message"
+            )
+        )
+
+        return f"{self.user} - {content}"
