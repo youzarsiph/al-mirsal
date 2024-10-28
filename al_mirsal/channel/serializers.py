@@ -26,4 +26,5 @@ class ChannelSerializer(ModelSerializer):
             "member_count",
             "created_at",
             "updated_at",
+            "latest_message",
         ]

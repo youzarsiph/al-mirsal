@@ -37,6 +37,7 @@ class Message(models.Model):
     channel = models.ForeignKey(
         "channel.Channel",
         on_delete=models.CASCADE,
+        related_name="messages",
         null=True,
         blank=True,
         help_text="Channel",
@@ -44,6 +45,7 @@ class Message(models.Model):
     chat = models.ForeignKey(
         "chats.Chat",
         on_delete=models.CASCADE,
+        related_name="messages",
         null=True,
         blank=True,
         help_text="Chat",
@@ -51,6 +53,7 @@ class Message(models.Model):
     group = models.ForeignKey(
         "groups.Group",
         on_delete=models.CASCADE,
+        related_name="messages",
         null=True,
         blank=True,
         help_text="Group",
@@ -93,6 +96,17 @@ class Message(models.Model):
         auto_now_add=True,
         help_text="Date created",
     )
+
+    @property
+    def is_edited(self) -> bool:
+        """
+        Wether the message is edited
+
+        Returns:
+            bool: True if the message is edited else False
+        """
+
+        return self.updated_at != self.created_at
 
     @property
     def reply_count(self) -> int:

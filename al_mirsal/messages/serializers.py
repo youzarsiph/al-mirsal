@@ -16,7 +16,7 @@ class MessageSerializer(ModelSerializer):
         read_only_fields = ["user", "channel", "chat", "group", "type", "is_pinned"]
         fields = [
             "id",
-            "url",
+            # "url",
             "user",
             "channel",
             "chat",
@@ -25,6 +25,7 @@ class MessageSerializer(ModelSerializer):
             "content",
             "photo",
             "file",
+            "is_edited",
             "is_pinned",
             "reply_count",
             "created_at",

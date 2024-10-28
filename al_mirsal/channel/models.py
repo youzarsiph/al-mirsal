@@ -12,8 +12,11 @@ Model Fields:
 - created_at: Date created
 """
 
+from typing import Dict, Union
 from django.db import models
 from django.contrib.auth import get_user_model
+
+from al_mirsal.messages.serializers import MessageSerializer
 
 
 # Create your models here.
@@ -69,6 +72,24 @@ class Channel(models.Model):
         auto_now_add=True,
         help_text="Date created",
     )
+
+    @property
+    def latest_message(self) -> Union[Dict[str, str], None]:
+        """
+        Latest message in the channel
+
+        Returns:
+            Dict[str, str]: Latest message
+        """
+
+        message = self.messages.latest("id")
+
+        if not message:
+            return
+
+        serializer = MessageSerializer(message)
+
+        return serializer.data
 
     @property
     def member_count(self) -> int:

@@ -14,4 +14,12 @@ class ChatSerializer(ModelSerializer):
 
         model = Chat
         read_only_fields = ["from_user", "to_user"]
-        fields = ["id", "url", "from_user", "to_user", "updated_at", "created_at"]
+        fields = [
+            "id",
+            "url",
+            "from_user",
+            "to_user",
+            "updated_at",
+            "created_at",
+            "latest_message",
+        ]
