@@ -12,7 +12,7 @@ Model Fields:
 - created_at: Date created
 """
 
-from typing import Dict, Union
+from typing import Any, Dict, Union
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -74,7 +74,7 @@ class Channel(models.Model):
     )
 
     @property
-    def latest_message(self) -> Union[Dict[str, str], None]:
+    def latest_message(self) -> Union[Dict[str, Any], None]:
         """
         Latest message in the channel
 
