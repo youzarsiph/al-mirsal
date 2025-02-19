@@ -1,10 +1,10 @@
-""" API endpoints for al_mirsal.msgs """
+"""API endpoints for al_mirsal.msgs"""
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from al_mirsal.messages.models import Message
-from al_mirsal.messages.serializers import MessageSerializer
+from al_mirsal.message.models import Message
+from al_mirsal.message.serializers import MessageSerializer
 from al_mirsal.mixins import OwnerMixin
 
 

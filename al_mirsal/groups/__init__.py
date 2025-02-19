@@ -1,1 +1,1 @@
-""" Group chats """
+"""Group chats"""

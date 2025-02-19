@@ -19,7 +19,7 @@ Model fields:
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from al_mirsal.messages import MESSAGE_TYPES
+from al_mirsal.message import MESSAGE_TYPES
 
 
 # Create your models here.

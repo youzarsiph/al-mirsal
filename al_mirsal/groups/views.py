@@ -1,4 +1,4 @@
-""" API endpoints for al_mirsal.groups """
+"""API endpoints for al_mirsal.groups"""
 
 from django.utils.text import slugify
 from rest_framework import status
@@ -47,14 +47,14 @@ class GroupViewSet(OwnerMixin, ModelViewSet):
         """
 
         message: str
-        channel: Group = self.get_object()
+        group: Group = self.get_object()
 
-        if request.user in channel.members.all():
-            channel.members.remove(request.user)
-            message = f"You left {channel}!"
+        if request.user in group.members.all():
+            group.members.remove(request.user)
+            message = f"You left {group}!"
 
         else:
-            channel.members.add(request.user)
-            message = f"You joined {channel}!"
+            group.members.add(request.user)
+            message = f"You joined {group}!"
 
         return Response(status=status.HTTP_201_CREATED, data={"details": message})

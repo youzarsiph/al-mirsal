@@ -1,4 +1,4 @@
-""" API endpoints for al_mirsal.channel """
+"""API endpoints for al_mirsal.channel"""
 
 from django.utils.text import slugify
 from rest_framework import status

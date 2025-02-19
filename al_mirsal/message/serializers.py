@@ -1,8 +1,8 @@
-""" Serializers for al_mirsal.msgs """
+"""Serializers for al_mirsal.msgs"""
 
 from rest_framework.serializers import ModelSerializer
 
-from al_mirsal.messages.models import Message
+from al_mirsal.message.models import Message
 
 
 # Create your serializers here.

@@ -1,4 +1,4 @@
-""" API endpoints for al_mirsal.members """
+"""API endpoints for al_mirsal.members"""
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
@@ -17,4 +17,4 @@ class MemberViewSet(OwnerMixin, ModelViewSet):
     permission_classes = [IsAuthenticated]
     ordering_fields = ["created_at", "updated_at"]
     filterset_fields = ["user", "channel", "group", "status"]
-    search_fields = ["channel__name", "group__name"]
+    search_fields = []

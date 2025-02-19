@@ -1,4 +1,4 @@
-""" Serializers for al_mirsal.channel """
+"""Serializers for al_mirsal.channel"""
 
 from rest_framework.serializers import ModelSerializer
 
@@ -26,5 +26,4 @@ class ChannelSerializer(ModelSerializer):
             "member_count",
             "created_at",
             "updated_at",
-            "latest_message",
         ]

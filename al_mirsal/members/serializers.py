@@ -1,4 +1,4 @@
-""" Serializers for al_mirsal.members """
+"""Serializers for al_mirsal.members"""
 
 from rest_framework.serializers import ModelSerializer
 

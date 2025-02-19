@@ -1,4 +1,4 @@
-""" API endpoints fro al_mirsal.chats """
+"""API endpoints fro al_mirsal.chats"""
 
 from django.db.models import Q
 from rest_framework.viewsets import ModelViewSet

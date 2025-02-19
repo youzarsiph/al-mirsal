@@ -1,8 +1,8 @@
-""" Chat Message Consumer """
+"""Chat Message Consumer"""
 
 from al_mirsal.chats.models import Chat
 from al_mirsal.chats.serializers import ChatSerializer
-from al_mirsal.consumers import MessageConsumer
+from al_mirsal.message.consumers import MessageConsumer
 
 
 # Create your consumers here.
@@ -11,4 +11,3 @@ class ChatMessageConsumer(MessageConsumer):
 
     model = Chat
     serializer_class = ChatSerializer
-    model_with_members = False

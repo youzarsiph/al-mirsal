@@ -1,4 +1,4 @@
-""" App Configuration for al_mirsal.groups """
+"""App Configuration for al_mirsal.groups"""
 
 from django.apps import AppConfig
 

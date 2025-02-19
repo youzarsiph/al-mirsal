@@ -1,4 +1,4 @@
-""" URLConf for al_mirsal """
+"""URLConf for al_mirsal"""
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
@@ -7,7 +7,7 @@ from al_mirsal.channel.views import ChannelViewSet
 from al_mirsal.chats.views import ChatViewSet
 from al_mirsal.groups.views import GroupViewSet
 from al_mirsal.members.views import MemberViewSet
-from al_mirsal.messages.views import MessageViewSet
+from al_mirsal.message.views import MessageViewSet
 
 
 # Create your URLConf here.

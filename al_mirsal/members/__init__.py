@@ -1,4 +1,4 @@
-""" Channel/Group Members """
+"""Channel/Group Members"""
 
 # Constants
 MEMBER_STATUS = {

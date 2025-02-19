@@ -1,4 +1,4 @@
-""" Messages """
+"""Messages"""
 
 # Constants
 MESSAGE_TYPES = {

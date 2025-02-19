@@ -1,4 +1,4 @@
-""" Permissions for al_mirsal """
+"""Permissions for al_mirsal"""
 
 from rest_framework.permissions import BasePermission
 
