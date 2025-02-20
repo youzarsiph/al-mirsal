@@ -34,10 +34,9 @@ jobs:
           echo "from django.urls import include" >> mysite/urls.py
           echo "urlpatterns += [path('', include('al_mirsal.urls'))]" >> mysite/urls.py
 
-      - name: Run Migrations, System checks and test
+      - name: Run system checks and test
         run: |
           source .venv/bin/activate
           cd mysite
-          python manage.py migrate
           python manage.py check
           python manage.py test
