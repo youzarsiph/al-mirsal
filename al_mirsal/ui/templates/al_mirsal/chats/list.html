@@ -1,0 +1,199 @@
+{% extends 'al_mirsal/base.html' %}{% load i18n %}
+
+<!---->
+{% block title %}{{ block.super }} | {% trans 'Chats' %}{% endblock %}
+
+<!---->
+{% block navbar %}{% endblock %}
+
+<!---->
+{% block content %}
+<div class="drawer size-full lg:drawer-open">
+  <input id="chats" type="checkbox" class="drawer-toggle" />
+
+  <section class="drawer-content">
+    <div class="container max-h-dvh size-full relative grid gap-4 overflow-y-auto lg:max-h-[calc(100dvh-1rem)]">
+      <header class="absolute inset-x-0 top-0 z-40 px-2 backdrop-blur-3xl bg-base-100/50 lg:px-4">
+        <nav class="navbar p-0">
+          <div class="navbar-start w-full gap-4">
+            <div class="tooltip tooltip-right rtl:tooltip-left tooltip-primary z-10 lg:hidden"
+              data-tip="{% trans 'Back' %}">
+              <label for="chats" aria-label="{% trans 'close sidebar' %}"
+                class="btn btn-square btn-soft btn-sm btn-primary md:btn-md 2xl:btn-lg">
+                <i data-lucide="chevron-left" class="size-4 md:size-6 rtl:rotate-180"></i>
+                <span class="sr-only"> {% trans 'Back' %} </span>
+              </label>
+            </div>
+
+            {% block header %}
+            <div class="tooltip tooltip-right rtl:tooltip-left tooltip-primary lg:hidden"
+              data-tip="{% trans 'Al-Mirsal' %}">
+              <h1 class="relative">
+                <a href="{% url 'al-mirsal:home' %}" class="btn btn-square btn-primary lg:btn-lg">
+                  <div
+                    class="bg-primary rounded-field text-primary-content absolute inset-0 size-full flex rotate-45 items-center justify-center">
+                    <i data-lucide="brain-circuit" class="-rotate-45 lg:size-8 2xl:size-10"></i>
+                  </div>
+                  <span class="sr-only"> {% trans 'Al-Mirsal' %} </span>
+                </a>
+              </h1>
+            </div>
+            {% endblock %}
+          </div>
+        </nav>
+      </header>
+
+      {% block chat_content %}
+      <div class="flex flex-col items-center justify-center gap-6 my-auto">
+        <i data-lucide="brain-circuit" class="text-primary size-56"></i>
+        <h1 class="text-primary text-xl lg:text-3xl">{% trans 'Chats' %}</h1>
+        <p class="lead">{% trans 'Select or create a chat to get started' %}</p>
+
+        <div class="flex items-center gap-4">
+          <a href="{% url 'al-mirsal:new-chat' %}" class="btn btn-primary">
+            {% trans 'New chat' %}
+          </a>
+          <label for="chats" class="btn btn-soft btn-primary lg:hidden">
+            {% trans 'Select chat' %}
+          </label>
+        </div>
+      </div>
+      {% endblock %}
+    </div>
+  </section>
+
+  <section class="drawer-side z-40 lg:min-w-sm xl:min-w-md 2xl:min-w-lg">
+    <label for="chats" aria-label="{% trans 'close sidebar' %}" class="drawer-overlay"></label>
+
+    <section
+      class="my-auto border border-base-200 bg-base-100/50 flex size-full flex-col overflow-hidden backdrop-blur-3xl sm:w-10/12 md:w-8/12 lg:w-full lg:max-h-[calc(100dvh-1rem)]">
+      <header class="p-4">
+        <nav class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="tooltip tooltip-right rtl:tooltip-left tooltip-primary z-10 lg:hidden"
+              data-tip="{% trans 'Open drawer' %}">
+              <label for="nav-drawer" aria-label="{% trans 'close sidebar' %}"
+                class="btn btn-square btn-soft btn-sm btn-primary md:btn-md 2xl:btn-lg">
+                <i data-lucide="menu" class="size-4 md:size-6"></i>
+                <span class="sr-only"> {% trans 'Open drawer' %} </span>
+              </label>
+            </div>
+
+            <div class="tooltip tooltip-right rtl:tooltip-left tooltip-primary tooltip-open lg:hidden"
+              data-tip="{% trans 'Chats' %}">
+              <h1 class="relative">
+                <a href="{% url 'al-mirsal:home' %}" class="btn btn-square btn-primary lg:btn-lg">
+                  <div
+                    class="bg-primary rounded-field text-primary-content absolute inset-0 size-full flex rotate-45 items-center justify-center">
+                    <i data-lucide="brain-circuit" class="-rotate-45 lg:size-8 2xl:size-10"></i>
+                  </div>
+                  <span class="sr-only"> {% trans 'Chats' %} </span>
+                </a>
+              </h1>
+            </div>
+
+            <h2 class="hidden text-primary text-2xl lg:block">
+              {% trans 'Chats' %}
+            </h2>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="tooltip tooltip-left rtl:tooltip-right tooltip-primary" data-tip="{% trans 'New chat' %}">
+              <a href="{% url 'al-mirsal:new-chat' %}"
+                class="btn btn-square btn-soft btn-sm btn-primary md:btn-md 2xl:btn-lg">
+                <i data-lucide="pen-box" class="size-4 md:size-6"></i>
+                <span class="sr-only">{% trans 'New chat' %}</span>
+              </a>
+            </div>
+
+            <div class="tooltip tooltip-left rtl:tooltip-right hover:tooltip-error lg:hidden"
+              data-tip="{% trans 'Close' %}">
+              <label for="chats" aria-label="{% trans 'close sidebar' %}"
+                class="btn btn-square btn-soft btn-sm btn-primary hover:btn-error md:btn-md 2xl:btn-lg">
+                <i data-lucide="x" class="size-4 md:size-6"></i>
+                <span class="sr-only">{% trans 'Close' %}</span>
+              </label>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <div class="relative grow overflow-y-auto px-4">
+        <ol class="list size-full">
+          {% for chat in chats %}
+          <li class="list-row items-center rounded-box relative hover:bg-base-200">
+            {% if chat.model.image %}
+            <div class="avatar">
+              <div class="w-12 rounded-full">
+                <img src="{{ chat.model.image.url }}" alt="{{ chat.model }}" />
+              </div>
+            </div>
+            {% else %}
+            <div class="avatar avatar-placeholder">
+              <div class="bg-primary text-primary-content w-12 rounded-full">
+                <span class="text-3xl">{{ chat.model.name|slice:':1' }}</span>
+              </div>
+            </div>
+            {% endif %}
+
+            <div>
+              <div class="text-primary text-lg font-semibold">
+                {{ chat.title }}
+              </div>
+              <div class="text-xs uppercase font-semibold opacity-60">
+                {{ chat.model }}
+              </div>
+            </div>
+
+            <div>
+              <i data-lucide="chevron-right" class="size-4 md:size-6 rtl:rotate-180"></i>
+            </div>
+
+            <a href="{% url 'al-mirsal:chat' chat.slug %}" class="absolute inset-0 z-10">
+              <span class="sr-only">{% trans 'Chat' %}</span>
+            </a>
+          </li>
+          {% empty %}
+          <!---->
+          {% for chat in request.user.chats.all %}
+          <li class="list-row items-center rounded-box relative hover:bg-base-200">
+            {% if chat.model.image %}
+            <div class="avatar">
+              <div class="w-12 rounded-full">
+                <img src="{{ chat.model.image.url }}" alt="{{ chat.model }}" />
+              </div>
+            </div>
+            {% else %}
+            <div class="avatar avatar-placeholder">
+              <div class="bg-primary text-primary-content w-12 rounded-full">
+                <span class="text-3xl">{{ chat.model.name|slice:':1' }}</span>
+              </div>
+            </div>
+            {% endif %}
+
+            <div>
+              <div class="text-primary text-lg font-semibold">
+                {{ chat.title }}
+              </div>
+              <div class="text-xs uppercase font-semibold opacity-60">
+                {{ chat.model }}
+              </div>
+            </div>
+
+            <div>
+              <i data-lucide="chevron-right" class="size-4 md:size-6 rtl:rotate-180"></i>
+            </div>
+
+            <a href="{% url 'al-mirsal:chat' chat.slug %}" class="absolute inset-0 z-10">
+              <span class="sr-only">{% trans 'Chat' %}</span>
+            </a>
+          </li>
+          {% endfor %}
+          <!---->
+          {% endfor %}
+        </ol>
+      </div>
+    </section>
+  </section>
+</div>
+{% endblock %}

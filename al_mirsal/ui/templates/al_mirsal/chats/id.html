@@ -1,0 +1,306 @@
+{% extends 'al_mirsal/chats/list.html' %}{% load i18n %}
+
+<!---->
+{% block title %}{{ block.super }} | {{ chat.title }}{% endblock %}
+
+<!---->
+{% block header %}
+<div class="flex items-center justify-between w-full">
+  <div class="flex items-center gap-4">
+    <div class="tooltip tooltip-right rtl:tooltip-left tooltip-primary" data-tip="{{ chat.model }}">
+      {% if chat.model.image %}
+      <div class="avatar">
+        <div class="w-10 rounded-full">
+          <img src="{{ chat.model.image.url }}" alt="{{ chat.model }}" />
+        </div>
+      </div>
+      {% else %}
+      <div class="avatar avatar-placeholder">
+        <div class="bg-primary text-primary-content w-10 rounded-full">
+          <span class="text-xl">{{ chat.model.name|slice:':1' }}</span>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <h1 class="text-lg font-semibold text-primary">{{ chat.title }}</h1>
+  </div>
+
+  <li class="tooltip tooltip-left rtl:tooltip-right tooltip-primary" data-tip="{% translate 'Options' %}">
+    <button popovertarget="options" style="anchor-name: --options"
+      class="btn btn-square btn-soft btn-sm btn-primary md:btn-md 2xl:btn-lg">
+      <i data-lucide="more-vertical" class="size-4 lg:size-6"></i>
+
+      <span class="sr-only">{% translate 'Options' %}</span>
+    </button>
+
+    <ul id="options" popover style="position-anchor: --options"
+      class="menu dropdown dropdown-left rounded-box bg-base-100/50 backdrop-blur-3xl shadow-sm rtl:dropdown-right">
+      <li class="menu-title">{% translate 'Options' %}</li>
+      <li>
+        <a href="{% url 'al-mirsal:update-chat' chat.slug %}">
+          {% trans 'Edit' %}
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'al-mirsal:delete-chat' chat.slug %}">
+          {% trans 'Delete' %}
+        </a>
+      </li>
+    </ul>
+  </li>
+</div>
+{% endblock %}
+
+<!---->
+{% block chat_content %}
+<div class="flex flex-col px-4 max-h-dvh gap-4 size-full py-20 overflow-y-auto lg:max-h-[calc(100dvh-1rem)]">
+  <ol id="messages" class="grid gap-4">
+    {% for message in chat.messages.all %}
+    <!---->
+    {% if message.model %}
+    <li class="chat chat-start text-primary">
+      <div class="chat-header">
+        {{ message.model }}
+        <time class="text-xs opacity-50"> {{ message.created_at|time }} </time>
+      </div>
+      <div class="chat-bubble chat-bubble-primary">
+        {{ message.content|safe }}
+      </div>
+    </li>
+    {% else %}
+    <li class="chat chat-end text-success">
+      <div class="chat-header">
+        {{ request.user }}
+        <time class="text-xs opacity-50"> {{ message.created_at|time }} </time>
+      </div>
+      <div class="chat-bubble chat-bubble-success">{{ message.content }}</div>
+    </li>
+    {% endif %}
+    <!---->
+    {% empty %}
+    <li class="chat chat-start text-primary">
+      <div class="chat-header">
+        {{ chat.model }}
+        <time class="text-xs opacity-50"> {% trans 'Now' %} </time>
+      </div>
+      <div class="chat-bubble chat-bubble-primary">
+        {% trans 'Hi, How I can assist you today?' %}
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <div id="loading" class="chat chat-start text-primary hidden">
+    <div class="chat-header">
+      {{ chat.model }}
+      <time class="text-xs opacity-50"> {% trans 'Generating' %} </time>
+    </div>
+    <div class="chat-bubble chat-bubble-primary">
+      <span class="loading loading-dots"></span>
+      <span class="sr-only">{% trans 'Generating' %}</span>
+    </div>
+  </div>
+</div>
+
+<section class="absolute shadow-xl inset-x-0 bottom-0 z-10 lg:p-2">
+  <nav class="navbar max-w-xl p-4 mx-auto items-center gap-2 bg-base-100/50 backdrop-blur-3xl lg:rounded-box">
+    <div class="flex items-center gap-4 w-full">
+      <label class="input w-full bg-transparent placeholder-primary input-primary">
+        <input type="text" name="message" id="chat-message-input" class="grow"
+          placeholder="{% trans 'Message Al-Mirsal' %}" />
+      </label>
+      <div class="flex items-center justify-end gap-2">
+        <div id="retry-btn" class="tooltip tooltip-primary" data-tip="{% trans 'Regenerate' %}">
+          <button type="button" class="btn btn-square btn-primary btn-soft">
+            <i data-lucide="refresh-ccw-dot" class="size-4 md:size-6"></i>
+            <span class="sr-only">{% trans 'Regenerate' %}</span>
+          </button>
+        </div>
+
+        <div class="tooltip tooltip-primary" data-tip="{% trans 'Send' %}">
+          <button id="chat-message-submit" type="button" class="btn btn-square btn-primary">
+            <i data-lucide="arrow-up-from-dot" class="size-4 md:size-6"></i>
+            <span class="sr-only">{% trans 'Send' %}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</section>
+
+<script>
+  const user = {
+    username: "{{ request.user }}",
+    image:
+      "{% if request.user.image %}{{ request.user.image.url }}{% else %}undefined{% endif %}",
+  };
+
+  const model = {
+    name: "{{ chat.model.name }}",
+    image:
+      "{% if chat.model.image %}{{ chat.model.image.url }}{% else %}undefined{% endif %}",
+  };
+
+  const status = document.getElementById("target");
+  const loading = document.getElementById("loading");
+  const retryBtn = document.getElementById("retry-btn");
+
+  const createChatBubble = (isAssistantMessage, content) => {
+    const container = document.createElement("div");
+    container.classList.add("chat");
+    const bubble = document.createElement("div");
+    bubble.classList.add("chat-bubble");
+    bubble.innerHTML = content;
+
+    if (isAssistantMessage) {
+      container.classList.add("chat-start");
+      bubble.classList.add("chat-bubble-accent");
+    } else {
+      container.classList.add("chat-end");
+      bubble.classList.add("chat-bubble-primary");
+    }
+
+    container.appendChild(bubble);
+
+    return container;
+  };
+
+  /**
+   * Create a chat <li> element based on the given message data,
+   * mirroring the Django conditional logic you provided.
+   * Returns the <li> element.
+   *
+   * Data example (adjust as needed):
+   * {
+   *   message: {
+   *     model: { name: 'Model Name', image: { url: '/path/to.jpg' } , create_at: '12:00', content: 'Message' },
+   *   },
+   *   request: { user: { username: 'User', image: { url: '/path/to/uu.jpg' } } },
+   *   // When model is present:
+   *   // When model is absent, use request.user data and message.created_at
+   *   created_at: '12:46',
+   * }
+   */
+  function createChatListItemFromData(message) {
+    // Create the base <li> with conditional class
+    const li = document.createElement("li");
+    if (message?.data?.model) {
+      li.className = "chat chat-start text-primary";
+    } else {
+      // assume message from request.user
+      li.className = "chat chat-end text-success";
+    }
+
+    // 2) Header
+    const header = document.createElement("div");
+    header.className = "chat-header";
+    if (message?.data?.model) {
+      // Model branch
+      header.textContent = model.name;
+    } else {
+      // User branch
+      header.textContent = user.username;
+    }
+
+    const time = document.createElement("time");
+    time.className = "text-xs opacity-50";
+    // Use provided create_at or fallback to message time
+    time.textContent = new Date(message?.data.created_at).toLocaleTimeString();
+    header.appendChild(time);
+
+    li.appendChild(header);
+
+    // 3) Bubble
+    const bubble = document.createElement("div");
+    // Bubble color class depends on branch
+    if (message?.data?.model) {
+      bubble.className = "chat-bubble chat-bubble-primary";
+      bubble.textContent = message.data.content ?? "";
+    } else {
+      bubble.className = "chat-bubble chat-bubble-success";
+      bubble.textContent = message?.data?.content ?? "";
+    }
+    li.appendChild(bubble);
+
+    // 4) Footer
+    // const footer = document.createElement('div');
+    // footer.className = 'chat-footer opacity-50';
+    // if (message?.data?.model) {
+    //   footer.textContent = 'Delivered';
+    // } else {
+    //   footer.textContent = 'Seen at 12:46';
+    // }
+    // li.appendChild(footer);
+
+    return li;
+  }
+
+  const socket = new WebSocket(
+    `ws://${window.location.host}/ws/chats/{{ chat.id }}/`,
+  );
+
+  socket.onmessage = function (e) {
+    const data = JSON.parse(e.data);
+
+    // console.log(e.data);
+
+    if (data.type === "error") {
+      retryBtn.classList.remove("hidden");
+    } else {
+      retryBtn.classList.add("hidden");
+    }
+
+    if (data.generating) {
+      loading.classList.remove("hidden");
+    } else {
+      loading.classList.add("hidden");
+    }
+
+    document
+      .getElementById("messages")
+      .appendChild(createChatListItemFromData(data));
+  };
+
+  socket.onclose = (e) => {
+    // status.classList.remove("avatar-online");
+    // status.classList.add("avatar-offline");
+    console.log(
+      "WebSocket closed with code:",
+      event.code,
+      "reason:",
+      event.reason,
+    );
+  };
+
+  socket.onerror = (e) => {
+    // status.classList.remove("avatar-online");
+    // status.classList.add("avatar-offline");
+    console.error("WebSocket error:", error);
+  };
+
+  document.querySelector("#chat-message-input").focus();
+
+  document.querySelector("#chat-message-input").onkeyup = (e) => {
+    if (e.keyCode === 13) {
+      // enter, return
+      document.querySelector("#chat-message-submit").click();
+    }
+  };
+
+  document.querySelector("#chat-message-submit").onclick = (e) => {
+    const messageInput = document.querySelector("#chat-message-input");
+
+    socket.send(
+      JSON.stringify({ type: null, message: { content: messageInput.value } }),
+    );
+
+    messageInput.value = "";
+  };
+
+  retryBtn.onclick = (e) => {
+    loading.classList.remove("hidden");
+    socket.send(JSON.stringify({ type: "retry" }));
+  };
+</script>
+{% endblock %}

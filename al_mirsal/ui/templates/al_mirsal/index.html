@@ -1,0 +1,27 @@
+{% extends 'al_mirsal/base.html' %}{% load i18n %}
+
+<!---->
+{% block content %}
+<div class="overflow-y-auto max-h-dvh lg:max-h-[calc(100dvh-1rem)]">
+  <section class="container mx-auto py-20 px-4 grid gap-8">
+    <div
+      class="hero relative bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-50% to-emerald-500 to-90% rounded-box md:aspect-video">
+      <div class="hero-content flex flex-col gap-8">
+        <h1 class="text-3xl text-primary font-black lg:text-7xl">
+          {% trans 'Al-Mirsal' %}
+        </h1>
+
+        <p class="lead text-primary text-xl lg:text-4xl">
+          {% trans 'Your AI assistant' %}
+        </p>
+
+        <div class="flex items-center">
+          <a href="{% url 'al-mirsal:chats' %}" class="btn btn-lg btn-primary">
+            {% trans 'Get Started' %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

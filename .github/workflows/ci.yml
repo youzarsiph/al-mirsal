@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+
+      - name: Install Dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install poetry
+          poetry install
+          
+      - name: Start Django project
+        run: |
+          source .venv/bin/activate
+          poetry run django-admin startproject core
+          mv al_mirsal core
+
+          # Configure settings
+          echo "AUTH_USER_MODEL = 'users.User'" >> core/settings.py
+          echo "INSTALLED_APPS += [" >> core/settings.py
+          echo "    'al_mirsal'," >> core/settings.py
+          echo "    'al_mirsal.api'," >> core/settings.py
+          echo "    'al_mirsal.apps.channel'," >> core/settings.py
+          echo "    'al_mirsal.apps.chats'," >> core/settings.py
+          echo "    'al_mirsal.apps.groups'," >> core/settings.py
+          echo "    'al_mirsal.apps.members'," >> core/settings.py
+          echo "    'al_mirsal.apps.message'," >> core/settings.py
+          echo "    'al_mirsal.apps.users'," >> core/settings.py
+          echo "    'al_mirsal.ui'," >> core/settings.py
+          echo "    'django_countries'," >> core/settings.py
+          echo "    'phonenumber_field'," >> core/settings.py
+          echo "    'django_filters'," >> core/settings.py
+          echo "    'rest_wind'," >> core/settings.py
+          echo "    'corsheaders'," >> core/settings.py
+          echo "    'djoser'," >> core/settings.py
+          echo "    'rest_framework'," >> core/settings.py
+          echo "    'rest_framework.authtoken'," >> core/settings.py
+          echo "]" >> core/settings.py
+          echo "MIDDLEWARE += ['wagtail.contrib.redirects.middleware.RedirectMiddleware']" >> core/settings.py
+
+          # Setup URLConf
+          # Imports
+          echo "from django.conf import settings" >> core/urls.py
+          echo "from django.conf.urls.i18n import i18n_patterns" >> core/urls.py
+          echo "from django.conf.urls.static import static" >> core/urls.py
+          # URLPatterns
+          echo "urlpatterns += [" >> core/urls.py
+          echo "    path('', include('django.conf.urls.i18n'))," >> core/urls.py
+          echo "] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)" >> core/urls.py
+          # I18N
+          echo "urlpatterns += i18n_patterns(" >> core/urls.py
+          echo "    path('admin/', admin.site.urls)," >> core/urls.py
+          echo "    path('api/', include('rest_framework.urls'))," >> core/urls.py
+          echo "    path('api/', include('djoser.urls'))," >> core/urls.py
+          echo "    path('api/', include('djoser.urls.authtoken'))," >> core/urls.py
+          echo "    path('', include('django.contrib.auth.urls'))," >> core/urls.py
+          echo "    path('api/', include('al_mirsal.api.urls'))," >> core/urls.py
+          echo "    path('', include('al_mirsal.ui.urls', namespace='ui'))," >> core/urls.py
+          echo ")" >> core/urls.py
+
+      - name: Run the al_mirsal
+        run: |
+          source .venv/bin/activate
+          poetry run python core/manage.py migrate
+          poetry run python core/manage.py check
+          poetry run python core/manage.py test

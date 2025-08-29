@@ -1,0 +1,70 @@
+"""URLConf for al_mirsal.ui"""
+
+from django.contrib.auth import views as auth
+from django.urls import path
+
+from al_mirsal.ui import views
+
+# Create your URLConf here.
+app_name = "al-mirsal"
+
+
+auth_urls = [
+    path("accounts/login/", auth.LoginView.as_view(), name="login"),
+    path("accounts/logout/", auth.LogoutView.as_view(), name="logout"),
+    path("accounts/signup/", views.SignupView.as_view(), name="signup"),
+    path("accounts/profile/", views.ProfileView.as_view(), name="profile"),
+    path("accounts/<int:pk>/update/", views.UserUpdateView.as_view(), name="u-user"),
+    path("accounts/<int:pk>/delete/", views.UserDeleteView.as_view(), name="d-user"),
+    path(
+        "accounts/password/change/",
+        auth.PasswordChangeView.as_view(),
+        name="password_change",
+    ),
+    path(
+        "accounts/password/change/done/",
+        auth.PasswordChangeDoneView.as_view(),
+        name="password_change_done",
+    ),
+    path(
+        "accounts/password/reset/",
+        auth.PasswordResetView.as_view(),
+        name="password_reset",
+    ),
+    path(
+        "accounts/password/reset/done/",
+        auth.PasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "accounts/password/reset/<uidb64>/<token>/",
+        auth.PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "accounts/password/reset/complete/",
+        auth.PasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
+]
+
+
+urlpatterns = auth_urls + [
+    path("", views.HomeView.as_view(), name="home"),
+    path("about/", views.AboutView.as_view(), name="about"),
+    path("contact/", views.ContactView.as_view(), name="content"),
+    # Chats
+    path("chats/", views.ChatListView.as_view(), name="chats"),
+    path("chats/new/", views.ChatCreateView.as_view(), name="new-chat"),
+    path("chats/<slug:slug>/", views.ChatDetailView.as_view(), name="chat"),
+    path(
+        "chats/<slug:slug>/update/",
+        views.ChatUpdateView.as_view(),
+        name="update-chat",
+    ),
+    path(
+        "chats/<slug:slug>/delete/",
+        views.ChatDeleteView.as_view(),
+        name="delete-chat",
+    ),
+]

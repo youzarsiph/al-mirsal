@@ -1,1 +1,1 @@
-"""Al-Mirsal: Your Trusted Messenger"""
+"""Al-Mirsal"""

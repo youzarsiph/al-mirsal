@@ -1,0 +1,27 @@
+{% extends 'al_mirsal/chats/list.html' %}{% load i18n %}
+
+<!---->
+{% block chat_content %}
+<div class="grid px-4 max-h-dvh gap-4 size-full py-20 overflow-y-auto lg:max-h-[calc(100dvh-1rem)]">
+  <div class="container flex flex-col gap-8 max-w-xl mx-auto">
+    {% if 'delete' in request.path %}
+    <h1 class="text-2xl text-primary font-semibold">
+      {% trans 'Delete chat' %}
+    </h1>
+    <div role="alert" class="alert alert-error">
+      <i data-lucide="alert-triangle" class="size-4 md:size-6"></i>
+      <p>{% trans 'This actions is destructive' %}</p>
+    </div>
+    {% elif 'update' in request.path %}
+    <h1 class="text-2xl text-primary font-semibold">
+      {% trans 'Update chat' %}
+    </h1>
+    {% else %}
+    <h1 class="text-2xl text-primary font-semibold">{% trans 'New chat' %}</h1>
+    {% endif %}
+
+    <!---->
+    {% include 'al_mirsal/components/form.html' %}
+  </div>
+</div>
+{% endblock %}

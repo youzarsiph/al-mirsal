@@ -1,0 +1,10 @@
+{% extends 'registration/base.html' %}{% load i18n %}
+
+<!---->
+{% block main_content %}
+<div class="grid gap-4">
+  {% block form_content %}{% endblock %}
+  <!---->
+  {% include 'al_mirsal/components/form.html' %}
+</div>
+{% endblock %}
